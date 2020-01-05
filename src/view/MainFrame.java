@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 	private MainFrame() {
 		initFrame();
 		
-		//this.setJMenuBar(new MenuBar());
+		this.setJMenuBar(new MenuBar());
 		initTopPanel();
 		initTabbedPanel();	
 		initBottomPanel();

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
@@ -23,10 +24,10 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
-		JMenu miNew = new JMenu("New");
+		JMenuItem miNew = new JMenuItem("New");
 		miNew.setIcon(new ImageIcon(imgAdd.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-		JMenu miClose = new JMenu("Close");
+		JMenuItem miClose = new JMenuItem("Close");
 		miClose.setIcon(new ImageIcon(imgClose.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 		
@@ -35,10 +36,10 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu edit = new JMenu("Edit");
 		edit.setMnemonic(KeyEvent.VK_E);
-		JMenu miEdit = new JMenu("Edit");
+		JMenuItem miEdit = new JMenuItem("Edit");
 		miEdit.setIcon(new ImageIcon(imgEdit.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miEdit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-		JMenu miDelete = new JMenu("Delete");
+		JMenuItem miDelete = new JMenuItem("Delete");
 		miDelete.setIcon(new ImageIcon(imgDelete.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miDelete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		
@@ -47,10 +48,10 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu help = new JMenu("Help");
 		help.setMnemonic(KeyEvent.VK_H);
-		JMenu miHelp = new JMenu("Help");
+		JMenuItem miHelp = new JMenuItem("Help");
 		miHelp.setIcon(new ImageIcon(imgHelp.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miHelp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK));
-		JMenu miAbout = new JMenu("About");
+		JMenuItem miAbout = new JMenuItem("About");
 		miAbout.setIcon(new ImageIcon(imgAbout.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
 		miAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		
