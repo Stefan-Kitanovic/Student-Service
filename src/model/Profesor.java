@@ -123,7 +123,4 @@ public class Profesor {
 		this.predmeti = predmeti;
 	}
 	
-	
-	
-	
 }
