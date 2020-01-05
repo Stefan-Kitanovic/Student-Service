@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
 
 	private Dimension frameSize;
 	private JTabbedPane tabbedPane;
-	private JPanel menuBarToolBarPanel;
+	private JPanel topPanel;
 	private JPanel centerPanel;
 	private JPanel bottomPanel;
 	
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 		initFrame();
 		
 		//this.setJMenuBar(new MenuBar());
-		initMenuBarTooBarPanel();
+		initTopPanel();
 		initTabbedPanel();	
 		initBottomPanel();
 		validate();
@@ -49,10 +49,10 @@ public class MainFrame extends JFrame {
 		
 	}
 
-	private void initMenuBarTooBarPanel() {
-		menuBarToolBarPanel = new JPanel();
-		menuBarToolBarPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.1)));
-		this.add(menuBarToolBarPanel, BorderLayout.NORTH);
+	private void initTopPanel() {
+		topPanel = new JPanel();
+		topPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.1)));
+		this.add(topPanel, BorderLayout.NORTH);
 	}
 
 	private void initTabbedPanel() {		
@@ -101,6 +101,7 @@ public class MainFrame extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frameSize = new Dimension((int) (screenSize.width*0.75), (int) (screenSize.height*0.75));
 
+		setResizable(false);
 		setSize(frameSize);
 		setTitle("Studentska Sluzba");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
