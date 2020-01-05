@@ -4,7 +4,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -18,6 +17,8 @@ public class MainFrame extends JFrame {
 	private Dimension frameSize;
 	private JTabbedPane tabbedPane;
 	private JPanel menuBarToolBarPanel;
+	private JPanel centerPanel;
+	private JPanel bottomPanel;
 	
 	private static MainFrame instance = null;
 	
@@ -30,21 +31,32 @@ public class MainFrame extends JFrame {
 	
 	private MainFrame() {
 		initFrame();
+		
+		//this.setJMenuBar(new MenuBar());
 		initMenuBarTooBarPanel();
 		initTabbedPanel();	
-		
+		initBottomPanel();
+		validate();
 	}
 	
 	
 	
 	
+	private void initBottomPanel() {
+		bottomPanel = new JPanel();
+		bottomPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.05)));
+		this.add(bottomPanel, BorderLayout.SOUTH);
+		
+	}
+
 	private void initMenuBarTooBarPanel() {
 		menuBarToolBarPanel = new JPanel();
-		menuBarToolBarPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.15)));
+		menuBarToolBarPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.1)));
 		this.add(menuBarToolBarPanel, BorderLayout.NORTH);
 	}
 
 	private void initTabbedPanel() {		
+		centerPanel = new JPanel(new BorderLayout());
 		tabbedPane = new JTabbedPane();		
 		
 		JPanel studentPanel = new JPanel();
@@ -81,7 +93,8 @@ public class MainFrame extends JFrame {
 		lab.setVerticalAlignment(SwingConstants.CENTER);
 		tabbedPane.setTabComponentAt(2, lab);
 		
-		this.add(tabbedPane, BorderLayout.CENTER);
+		centerPanel.add(tabbedPane, BorderLayout.CENTER);
+		this.add(centerPanel, BorderLayout.CENTER);
 	}
 	
 	private void initFrame() {
