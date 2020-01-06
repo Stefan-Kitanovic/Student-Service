@@ -14,11 +14,13 @@ import javax.swing.SwingConstants;
 
 public class MainFrame extends JFrame {
 
+	private static final long serialVersionUID = -4390247854245253515L;
+	
 	private Dimension frameSize;
 	private JTabbedPane tabbedPane;
 	private JPanel topPanel;
 	private JPanel centerPanel;
-	private JPanel bottomPanel;
+	private StatusBar bottomPanel;
 	
 	private static MainFrame instance = null;
 	
@@ -43,8 +45,7 @@ public class MainFrame extends JFrame {
 	
 	
 	private void initBottomPanel() {
-		bottomPanel = new JPanel();
-		bottomPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.05)));
+		bottomPanel = new StatusBar();
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		
 	}
