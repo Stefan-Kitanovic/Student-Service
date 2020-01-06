@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public class Predmet {
 
 	private String sifraPredmeta;
@@ -7,18 +9,19 @@ public class Predmet {
 	private String semestar;
 	private String godinaStudija;
 	private Profesor predmetniProfesor;
-	//private List<Student> spisakStudenata;
+	private List<Student> spisakStudenata;
 	
 	public Predmet() {}
 	
 	public Predmet(String sifraPredmeta, String nazivPredmeta, String semestar, String godinaStudija,
-			Profesor predmetniProfesor) {
+			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		super();
 		this.sifraPredmeta = sifraPredmeta;
 		this.nazivPredmeta = nazivPredmeta;
 		this.semestar = semestar;
 		this.godinaStudija = godinaStudija;
-		this.predmetniProfesor = predmetniProfesor;		
+		this.predmetniProfesor = predmetniProfesor;	
+		this.spisakStudenata = spisakStudenata;
 	}
 	
 	public String getSifraPredmeta() {
@@ -59,6 +62,14 @@ public class Predmet {
 	
 	public void setPredmetniProfesor(Profesor predmetniProfesor) {
 		this.predmetniProfesor = predmetniProfesor;
+	}
+
+	public List<Student> getSpisakStudenata() {
+		return spisakStudenata;
+	}
+
+	public void setSpisakStudenata(List<Student> spisakStudenata) {
+		this.spisakStudenata = spisakStudenata;
 	}
 	
 }
