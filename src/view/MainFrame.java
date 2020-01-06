@@ -4,6 +4,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -18,9 +19,9 @@ public class MainFrame extends JFrame {
 	
 	private Dimension frameSize;
 	private JTabbedPane tabbedPane;
-	private JPanel topPanel;
+	private Toolbar toolbar;
 	private JPanel centerPanel;
-	private StatusBar bottomPanel;
+	private StatusBar statusBar;
 	
 	private static MainFrame instance = null;
 	
@@ -35,25 +36,24 @@ public class MainFrame extends JFrame {
 		initFrame();
 		
 		this.setJMenuBar(new MenuBar());
-		initTopPanel();
+		initToolbar();
 		initTabbedPanel();	
-		initBottomPanel();
+		initStatusBar();
 		validate();
 	}
 	
 	
 	
 	
-	private void initBottomPanel() {
-		bottomPanel = new StatusBar();
-		this.add(bottomPanel, BorderLayout.SOUTH);
+	private void initStatusBar() {
+		statusBar = new StatusBar();
+		this.add(statusBar, BorderLayout.SOUTH);
 		
 	}
 
-	private void initTopPanel() {
-		topPanel = new JPanel();
-		topPanel.setPreferredSize(new Dimension(frameSize.width,(int) (frameSize.height*0.1)));
-		this.add(topPanel, BorderLayout.NORTH);
+	private void initToolbar() {
+		toolbar = new Toolbar((int) (frameSize.height*0.05));	
+		this.add(toolbar, BorderLayout.NORTH);
 	}
 
 	private void initTabbedPanel() {		
@@ -110,5 +110,9 @@ public class MainFrame extends JFrame {
 		//Postavlja prozor na centar ekrana
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public int getSelectedTab() {
+		return tabbedPane.getSelectedIndex();
 	}
 }
