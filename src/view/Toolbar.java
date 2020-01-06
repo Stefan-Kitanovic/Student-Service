@@ -40,7 +40,63 @@ public class Toolbar extends JToolBar {
 		
 		JTextField searchBar = new JTextField();
 		searchBar.setPreferredSize(new Dimension(5*width, height));
-						
+	
+		btnNew.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					//Operacije sa studentima
+					break;
+				case 1:
+					//Operacije sa profesorima
+					break;
+				case 2:
+					//Operacije sa predmetima
+					break;
+			}
+				
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					//Operacije sa studentima
+					break;
+				case 1:
+					//Operacije sa profesorima
+					break;
+				case 2:
+					//Operacije sa predmetima
+					break;
+			}
+				
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					//Operacije sa studentima
+					break;
+				case 1:
+					//Operacije sa profesorima
+					break;
+				case 2:
+					//Operacije sa predmetima
+					break;
+			}
+				
+			}
+		});
 		
 		leftPanel.add(btnNew);
 		leftPanel.add(btnEdit);
