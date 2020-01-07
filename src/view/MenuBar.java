@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -10,6 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
+
+import controller.StudentController;
 
 
 public class MenuBar extends JMenuBar {
@@ -66,5 +69,87 @@ public class MenuBar extends JMenuBar {
 		add(file);
 		add(edit);
 		add(help);
+		
+		//Funkcionalnosti
+		
+		miNew.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					StudentController.getInstance().addStudent();
+					break;
+				case 1:
+					//Dodavanje profesora
+					break;
+				case 2:
+					//dodavanje predmeta
+					break;
+				}
+			}
+		});
+		
+		miClose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		miEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					StudentController.getInstance().editStudent();
+					break;
+				case 1:
+					//Izmena profesora
+					break;
+				case 2:
+					//Izmena predmeta
+					break;
+				}
+			}
+		});
+		
+		miDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+				case 0:
+					StudentController.getInstance().deleteStudent();
+					break;
+				case 1:
+					//Brisanje profesora
+					break;
+				case 2:
+					//Brisanje predmeta
+					break;
+				}
+			}
+		});
+		
+		miHelp.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		
+		miAbout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 	}
 }

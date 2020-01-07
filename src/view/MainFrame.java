@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 public class MainFrame extends JFrame {
@@ -21,6 +22,8 @@ public class MainFrame extends JFrame {
 	private Toolbar toolbar;
 	private JPanel centerPanel;
 	private StatusBar statusBar;
+	
+	private JTable tableStudent;
 	
 	private static MainFrame instance = null;
 	
@@ -34,7 +37,7 @@ public class MainFrame extends JFrame {
 	private MainFrame() {
 		initFrame();
 		
-		this.setJMenuBar(new MenuBar(this));
+		initMenuBar();
 		initToolbar();
 		initTabbedPanel();	
 		initStatusBar();
@@ -42,7 +45,9 @@ public class MainFrame extends JFrame {
 	}
 	
 	
-	
+	private void initMenuBar() {
+		this.setJMenuBar(new MenuBar(this));
+	}
 	
 	private void initStatusBar() {
 		statusBar = new StatusBar();

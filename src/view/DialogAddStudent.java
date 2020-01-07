@@ -4,10 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -20,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import controller.StudentController;
 
 public class DialogAddStudent extends JDialog {
 
@@ -31,7 +28,7 @@ public class DialogAddStudent extends JDialog {
 		
 		setIconImage(new ImageIcon("icons/add.png").getImage());
 		setLayout(new BorderLayout(40,40));
-		setSize(400, 375);
+		setSize(400, 400);
 		setResizable(false);
 		setLocationRelativeTo(parent);
 		
@@ -100,7 +97,7 @@ public class DialogAddStudent extends JDialog {
 		JLabel lgodina = new JLabel("Trenutna godina studija*");
 		lgodina.setPreferredSize(dimLab);
 		String god[] = {"I (Prva)", "II (Druga)", "III (Treca)", "IV (Cetvrta)"}; 
-		JComboBox godina = new JComboBox(god);
+		JComboBox<String> godina = new JComboBox<String>(god);
 		godina.setPreferredSize(dimText);
 		pGodina.add(lgodina);
 		pGodina.add(godina);
@@ -113,6 +110,15 @@ public class DialogAddStudent extends JDialog {
 		status.add(s);
 		b.setSelected(true);
 		
+		//Prosek
+		JPanel pProsek = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+		JLabel lprosek = new JLabel("Prosek*");
+		lprosek.setPreferredSize(dimLab);
+		JTextField prosek = new JTextField();
+		prosek.setPreferredSize(dimText);
+		pProsek.add(lprosek);
+		pProsek.add(prosek);
+		
 		textPart.add(pIme);
 		textPart.add(pPrezime);
 		textPart.add(pDatumr);
@@ -122,6 +128,7 @@ public class DialogAddStudent extends JDialog {
 		textPart.add(pGodina);
 		textPart.add(b, new FlowLayout(FlowLayout.LEFT));
 		textPart.add(s, new FlowLayout(FlowLayout.LEFT));
+		textPart.add(pProsek);
 	
 		JPanel buttonPart = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton ok = new JButton("Potvrdi");
@@ -132,6 +139,23 @@ public class DialogAddStudent extends JDialog {
 		
 		add(textPart, BorderLayout.CENTER);
 		add(buttonPart, BorderLayout.SOUTH);
+		
+		ok.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		close.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 
 }

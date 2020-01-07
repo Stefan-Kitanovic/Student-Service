@@ -21,7 +21,7 @@ public class StudentController {
 		
 	}
 
-	public void removeStudent() {
+	public void deleteStudent() {
 	
 	}
 }
