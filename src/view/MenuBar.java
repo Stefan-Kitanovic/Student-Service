@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
@@ -10,11 +11,12 @@ import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
 
+
 public class MenuBar extends JMenuBar {
 
 	private static final long serialVersionUID = -111659266189879540L;
 
-	public MenuBar() {
+	public MenuBar(Frame parent) {
 		ImageIcon imgAdd = new ImageIcon("icons/add.png");
 		ImageIcon imgClose = new ImageIcon("icons/close.png");
 		ImageIcon imgEdit = new ImageIcon("icons/edit.png");
@@ -22,6 +24,7 @@ public class MenuBar extends JMenuBar {
 		ImageIcon imgHelp = new ImageIcon("icons/help.png");
 		ImageIcon imgAbout = new ImageIcon("icons/about.png");
 		
+		//file
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		JMenuItem miNew = new JMenuItem("New");
@@ -34,6 +37,7 @@ public class MenuBar extends JMenuBar {
 		file.add(miNew);
 		file.add(miClose);
 		
+		//edit
 		JMenu edit = new JMenu("Edit");
 		edit.setMnemonic(KeyEvent.VK_E);
 		JMenuItem miEdit = new JMenuItem("Edit");
@@ -46,6 +50,7 @@ public class MenuBar extends JMenuBar {
 		edit.add(miEdit);
 		edit.add(miDelete);
 		
+		//help
 		JMenu help = new JMenu("Help");
 		help.setMnemonic(KeyEvent.VK_H);
 		JMenuItem miHelp = new JMenuItem("Help");
