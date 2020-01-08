@@ -1,5 +1,7 @@
 package controller;
 
+import model.PredmetBaza;
+
 public class PredmetController {
 
 private static PredmetController instance = null;
@@ -23,6 +25,10 @@ private static PredmetController instance = null;
 	
 	public void deletePredmet() {
 		
+	}
+	
+	public void saveData() {
+		PredmetBaza.getInstance().savePredmetaBazaData();
 	}
 	
 }

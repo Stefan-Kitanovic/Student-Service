@@ -21,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import controller.PredmetController;
 import model.PredmetBaza;
 
 public class MainFrame extends JFrame {
@@ -56,7 +57,7 @@ public class MainFrame extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				PredmetBaza.getInstance().savePredmetaBazaData();
+				PredmetController.getInstance().saveData();
 				System.exit(0);
 			}
 		});
