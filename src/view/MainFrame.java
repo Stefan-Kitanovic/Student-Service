@@ -6,14 +6,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import model.PredmetBaza;
 
 public class MainFrame extends JFrame {
 
@@ -74,8 +80,9 @@ public class MainFrame extends JFrame {
 		profesoriPanel.setBackground(new Color(0, 255, 0));
 		tabbedPane.addTab("profesor", profesoriPanel);
 		
-		JPanel predmetiPanel = new JPanel();
-		predmetiPanel.setBackground(new Color(0, 0, 255));
+		JScrollPane predmetiPanel = new JScrollPane(new PredmetTable());
+		predmetiPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
+		predmetiPanel.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("predmet", predmetiPanel);		
 		
 

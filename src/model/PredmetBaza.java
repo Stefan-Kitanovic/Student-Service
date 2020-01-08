@@ -26,15 +26,15 @@ public class PredmetBaza {
 		columns.add("Semestar");
 		columns.add("Godina");
 		columns.add("Profesor");
-		columns.add("Studenti");
+		columns.add("Studenti");	
 	}
 	
-	public void addPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, String godinaStudija,
+	public void addPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		predmeti.add(new Predmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata));
 	}
 	
-	public void editPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, String godinaStudija,
+	public void editPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {	
 		
 		for (Predmet predmet : predmeti) {
@@ -59,4 +59,36 @@ public class PredmetBaza {
 		}
 	}
 	
+	public int getColumnCount() {
+		return columns.size();
+	}
+	
+	public List<Predmet> getPredmeti() {
+		return predmeti;
+	}
+	
+	public String getValueAt(int row, int column) {
+		Predmet predmet = predmeti.get(row);
+		
+		switch (column) {
+		case 0:
+			return predmet.getSifraPredmeta();
+		case 1:
+			return predmet.getNazivPredmeta();
+		case 2:
+			return predmet.getSemestar();
+		case 3:
+			return predmet.getGodinaStudija().toString();
+		case 4:
+			return predmet.getPredmetniProfesor().getIme() + " " + predmet.getPredmetniProfesor().getPrezime();
+		case 5:
+			return "Prikazi";
+		default:
+			return null;
+		}
+	}
+	
+	public String getColumnName(int index) {
+		return columns.get(index);
+	}
 }

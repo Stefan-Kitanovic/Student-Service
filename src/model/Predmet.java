@@ -7,13 +7,13 @@ public class Predmet {
 	private String sifraPredmeta;
 	private String nazivPredmeta;
 	private String semestar;
-	private String godinaStudija;
+	private Godina godinaStudija;
 	private Profesor predmetniProfesor;
 	private List<Student> spisakStudenata;
 	
 	public Predmet() {}
 	
-	public Predmet(String sifraPredmeta, String nazivPredmeta, String semestar, String godinaStudija,
+	public Predmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		super();
 		this.sifraPredmeta = sifraPredmeta;
@@ -36,7 +36,7 @@ public class Predmet {
 		return semestar;
 	}
 	
-	public String getGodinaStudija() {
+	public Godina getGodinaStudija() {
 		return godinaStudija;
 	}
 	
@@ -56,7 +56,7 @@ public class Predmet {
 		this.semestar = semestar;
 	}
 	
-	public void setGodinaStudija(String godinaStudija) {
+	public void setGodinaStudija(Godina godinaStudija) {
 		this.godinaStudija = godinaStudija;
 	}
 	
