@@ -1,10 +1,19 @@
 package model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PredmetBaza {
+public class PredmetBaza implements Serializable {
 
+	private static final long serialVersionUID = 617024959849324035L;
+	
 	private static PredmetBaza instance = null;
 
 	public static PredmetBaza getInstance() {
@@ -26,8 +35,22 @@ public class PredmetBaza {
 		columns.add("Semestar");
 		columns.add("Godina");
 		columns.add("Profesor");
-		columns.add("Studenti");	
+		columns.add("Studenti");
+		
+		File data = new File("data/PredmetData.data");
+		
+		if (data.exists())
+			predmeti = loadPredmetBazaData();
+		else {
+			predmeti.add(new Predmet("test1", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test2", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test3", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test4", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test5", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+		}
+		
 	}
+		
 	
 	public void addPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
@@ -90,5 +113,38 @@ public class PredmetBaza {
 	
 	public String getColumnName(int index) {
 		return columns.get(index);
+	}
+	
+	public void savePredmetaBazaData() {
+
+		try {
+			FileOutputStream outFile = new FileOutputStream("data/PredmetData.data");
+			ObjectOutputStream out = new ObjectOutputStream(outFile);
+			out.writeObject(predmeti);
+			out.close();
+			outFile.close();
+			System.out.println("Predmeti sacuvani.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public List<Predmet> loadPredmetBazaData() {
+		List<Predmet> ret = null;
+		
+		try {
+			FileInputStream inFile = new FileInputStream("data/PredmetData.data");
+			ObjectInputStream in = new ObjectInputStream(inFile);
+			ret = (List<Predmet>) in.readObject();
+			in.close();
+			inFile.close();
+			System.out.println("Predmeti ucitani.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
 	}
 }

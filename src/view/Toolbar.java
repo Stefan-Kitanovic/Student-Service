@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 
 import com.sun.glass.events.KeyEvent;
 
+import model.PredmetBaza;
+
 public class Toolbar extends JToolBar {
 
 	private static final long serialVersionUID = 3857751384023571451L;

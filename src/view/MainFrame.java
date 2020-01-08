@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -50,6 +52,14 @@ public class MainFrame extends JFrame {
 		initToolbar();
 		initStatusBar();
 		validate();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				PredmetBaza.getInstance().savePredmetaBazaData();
+				System.exit(0);
+			}
+		});
 	}
 	
 	
@@ -151,5 +161,6 @@ public class MainFrame extends JFrame {
 	public static String getSelectedTabName() {
 		return selectedTabName;
 	}
+	
 	
 }

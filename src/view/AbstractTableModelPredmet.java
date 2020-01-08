@@ -6,6 +6,8 @@ import model.PredmetBaza;
 
 public class AbstractTableModelPredmet extends AbstractTableModel {
 
+	private static final long serialVersionUID = 2312401778786703057L;
+
 	@Override
 	public int getColumnCount() {
 		return PredmetBaza.getInstance().getColumnCount();
