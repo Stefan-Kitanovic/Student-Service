@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class MainFrame extends JFrame {
 
@@ -22,8 +24,8 @@ public class MainFrame extends JFrame {
 	private Toolbar toolbar;
 	private JPanel centerPanel;
 	private StatusBar statusBar;
-	
 	private JTable tableStudent;
+	private static String selectedTabName;
 	
 	private static MainFrame instance = null;
 	
@@ -38,8 +40,8 @@ public class MainFrame extends JFrame {
 		initFrame();
 		
 		initMenuBar();
-		initToolbar();
 		initTabbedPanel();	
+		initToolbar();
 		initStatusBar();
 		validate();
 	}
@@ -66,18 +68,18 @@ public class MainFrame extends JFrame {
 		
 		JPanel studentPanel = new JPanel();
 		studentPanel.setBackground(new Color(255, 0, 0));		
-		tabbedPane.addTab(null, studentPanel);	
+		tabbedPane.addTab("student", studentPanel);	
 		
 		JPanel profesoriPanel = new JPanel();
 		profesoriPanel.setBackground(new Color(0, 255, 0));
-		tabbedPane.addTab(null, profesoriPanel);
+		tabbedPane.addTab("profesor", profesoriPanel);
 		
 		JPanel predmetiPanel = new JPanel();
 		predmetiPanel.setBackground(new Color(0, 0, 255));
-		tabbedPane.addTab(null, predmetiPanel);		
+		tabbedPane.addTab("predmet", predmetiPanel);		
 		
 
-		JLabel lab = new JLabel();
+		JLabel lab = new JLabel("student");
 		lab.setPreferredSize(new Dimension(150, 50));	
 		lab.setText("Studenti");
 		lab.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,6 +99,25 @@ public class MainFrame extends JFrame {
 		lab.setHorizontalAlignment(SwingConstants.CENTER);
 		lab.setVerticalAlignment(SwingConstants.CENTER);
 		tabbedPane.setTabComponentAt(2, lab);
+		
+		selectedTabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
+		
+		tabbedPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (tabbedPane.getSelectedIndex() == 2) {
+					toolbar.setBtnAddStudentToPredmetVisible(true);
+					toolbar.setBtnAddProfesorToPredmetVisible(true);
+				} else {
+					toolbar.setBtnAddStudentToPredmetVisible(false);
+					toolbar.setBtnAddProfesorToPredmetVisible(false);
+				}
+				
+				selectedTabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
+				toolbar.setTooltips();
+			}
+		});
 		
 		centerPanel.add(tabbedPane, BorderLayout.CENTER);
 		this.add(centerPanel, BorderLayout.CENTER);
@@ -119,4 +140,9 @@ public class MainFrame extends JFrame {
 	public int getSelectedTab() {
 		return tabbedPane.getSelectedIndex();
 	}
+	
+	public static String getSelectedTabName() {
+		return selectedTabName;
+	}
+	
 }
