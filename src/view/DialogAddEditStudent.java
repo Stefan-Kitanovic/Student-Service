@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -13,22 +14,37 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.sun.istack.internal.Nullable;
 
-public class DialogAddStudent extends JDialog {
+import model.Godina;
+import model.Status;
+import model.Student;
+
+
+public class DialogAddEditStudent extends JDialog {
 
 	private static final long serialVersionUID = -5271396812269074473L;
+	
+	SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
 
-	public DialogAddStudent(Frame parent) {
+	public DialogAddEditStudent(Frame parent, Boolean adding, @Nullable Student s) {
 		super(parent, "Dodavanje studenta", true);
+		//adding - govori da li se radi o dodavanju(true) ili izmeni(false)
 		
-		setIconImage(new ImageIcon("icons/add.png").getImage());
+		if(adding)
+			setIconImage(new ImageIcon("icons/add.png").getImage());
+		else {
+			setIconImage(new ImageIcon("icons/edit.png").getImage());
+			setTitle("Izmena studenta");
+		}
 		setLayout(new BorderLayout(40,40));
-		setSize(400, 400);
+		setSize(400, 425);
 		setResizable(false);
 		setLocationRelativeTo(parent);
 		
@@ -44,6 +60,8 @@ public class DialogAddStudent extends JDialog {
 		lime.setPreferredSize(dimLab);
 		JTextField ime = new JTextField();
 		ime.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(s.getIme());
 		pIme.add(lime);
 		pIme.add(ime);
 		
@@ -53,6 +71,8 @@ public class DialogAddStudent extends JDialog {
 		lprezime.setPreferredSize(dimLab);
 		JTextField prezime = new JTextField();
 		prezime.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(s.getPrezime());
 		pPrezime.add(lprezime);
 		pPrezime.add(prezime);
 		
@@ -60,8 +80,10 @@ public class DialogAddStudent extends JDialog {
 		JPanel pDatumr = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel ldatumr = new JLabel("Datum rodjenja*");
 		ldatumr.setPreferredSize(dimLab);
-		JTextField datumr = new JTextField();
+		JFormattedTextField datumr = new JFormattedTextField(sdf);
 		datumr.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(sdf.format(s.getDatumr()));
 		pDatumr.add(ldatumr);
 		pDatumr.add(datumr);
 		
@@ -71,6 +93,8 @@ public class DialogAddStudent extends JDialog {
 		ladresa.setPreferredSize(dimLab);
 		JTextField adresa = new JTextField();
 		adresa.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(s.getAdresa());
 		pAdresa.add(ladresa);
 		pAdresa.add(adresa);
 		
@@ -80,6 +104,8 @@ public class DialogAddStudent extends JDialog {
 		ltel.setPreferredSize(dimLab);
 		JTextField tel = new JTextField();
 		tel.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(s.getTel());
 		pTel.add(ltel);
 		pTel.add(tel);
 		
@@ -89,26 +115,63 @@ public class DialogAddStudent extends JDialog {
 		lindex.setPreferredSize(dimLab);
 		JTextField index = new JTextField();
 		index.setPreferredSize(dimText);
+		if(!adding) {
+			ime.setText(s.getIndex());
+			ime.setEditable(false);
+		}
 		pIndex.add(lindex);
 		pIndex.add(index);
+		
+		//datumu
+		JPanel pDatumu = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+		JLabel ldatumu = new JLabel("Datum upisa*");
+		ldatumu.setPreferredSize(dimLab);
+		JFormattedTextField datumu = new JFormattedTextField(sdf);
+		datumu.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(sdf.format(s.getDatumu()));
+		pDatumu.add(ldatumu);
+		pDatumu.add(datumu);
 		
 		//Trenutna godina
 		JPanel pGodina = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel lgodina = new JLabel("Trenutna godina studija*");
 		lgodina.setPreferredSize(dimLab);
-		String god[] = {"I (Prva)", "II (Druga)", "III (Treca)", "IV (Cetvrta)"}; 
-		JComboBox<String> godina = new JComboBox<String>(god);
+//		String god[] = {"I (Prva)", "II (Druga)", "III (Treca)", "IV (Cetvrta)"}; 
+		JComboBox<Godina> godina = new JComboBox<Godina>(Godina.values());
 		godina.setPreferredSize(dimText);
+		if(!adding) {
+			switch(s.getGodina()) {
+			case I:
+				godina.setSelectedIndex(0);
+				break;
+			case II:
+				godina.setSelectedIndex(1);
+				break;
+			case III:
+				godina.setSelectedIndex(2);
+				break;
+			case IV:
+				godina.setSelectedIndex(3);
+				break;
+			}
+		}
+			
 		pGodina.add(lgodina);
 		pGodina.add(godina);
 		
 		//Status
-		JRadioButton b = new JRadioButton("Budžet");
-		JRadioButton s = new JRadioButton("Samofinansiranje");
+		JRadioButton bu = new JRadioButton("Budžet", true);
+		JRadioButton sf = new JRadioButton("Samofinansiranje");
 		ButtonGroup status = new ButtonGroup();
-		status.add(b);
-		status.add(s);
-		b.setSelected(true);
+		status.add(bu);
+		status.add(sf);
+		if(!adding) {
+				if(s.getStatus() == Status.S) {
+					bu.setSelected(false);
+					sf.setSelected(true);
+				}
+		}
 		
 		//Prosek
 		JPanel pProsek = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
@@ -116,6 +179,8 @@ public class DialogAddStudent extends JDialog {
 		lprosek.setPreferredSize(dimLab);
 		JTextField prosek = new JTextField();
 		prosek.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(String.valueOf(s.getProsek()));
 		pProsek.add(lprosek);
 		pProsek.add(prosek);
 		
@@ -125,9 +190,10 @@ public class DialogAddStudent extends JDialog {
 		textPart.add(pAdresa);
 		textPart.add(pTel);
 		textPart.add(pIndex);
+		textPart.add(pDatumu);
 		textPart.add(pGodina);
-		textPart.add(b, new FlowLayout(FlowLayout.LEFT));
-		textPart.add(s, new FlowLayout(FlowLayout.LEFT));
+		textPart.add(bu, new FlowLayout(FlowLayout.LEFT));
+		textPart.add(sf, new FlowLayout(FlowLayout.LEFT));
 		textPart.add(pProsek);
 	
 		JPanel buttonPart = new JPanel(new FlowLayout(FlowLayout.RIGHT));

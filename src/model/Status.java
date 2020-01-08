@@ -1,8 +1,7 @@
 package model;
 
-public class Status {
-	enum State {
+public enum Status {
 		B,		//Budetski
 		S		//Samofinansirajuci
-	}
+	
 }

@@ -13,14 +13,14 @@ public class Student {
 	private String email;
 	private String index;
 	private Date datumu;
-	private String godina;
+	private Godina godina;
 	private Status status;
 	private double prosek;
 	private List<Predmet> predmeti;
 	
 	
 	public Student(String ime, String prezime, Date datumr, String adresa, String tel, String email, String index,
-			Date datumu, String godina, Status status, double prosek, List<Predmet> predmeti) {
+			Date datumu, Godina godina, Status status, double prosek, List<Predmet> predmeti) {
 		super();
 		this.ime = ime;
 		this.prezime = prezime;
@@ -101,11 +101,11 @@ public class Student {
 		this.datumu = datumu;
 	}
 
-	public String getGodina() {
+	public Godina getGodina() {
 		return godina;
 	}
 
-	public void setGodina(String godina) {
+	public void setGodina(Godina godina) {
 		this.godina = godina;
 	}
 
