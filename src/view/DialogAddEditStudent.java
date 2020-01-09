@@ -3,9 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.BoxLayout;
@@ -16,12 +16,15 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import com.sun.istack.internal.Nullable;
 
+import controller.StudentController;
 import model.Godina;
 import model.Status;
 import model.Student;
@@ -31,10 +34,10 @@ public class DialogAddEditStudent extends JDialog {
 
 	private static final long serialVersionUID = -5271396812269074473L;
 	
-	SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
+	SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy.");
 
-	public DialogAddEditStudent(Frame parent, Boolean adding, @Nullable Student s) {
-		super(parent, "Dodavanje studenta", true);
+	public DialogAddEditStudent(Boolean adding, @Nullable Student s) {
+		super(MainFrame.getInstance(), "Dodavanje studenta", true);
 		//adding - govori da li se radi o dodavanju(true) ili izmeni(false)
 		
 		if(adding)
@@ -46,7 +49,7 @@ public class DialogAddEditStudent extends JDialog {
 		setLayout(new BorderLayout(40,40));
 		setSize(400, 425);
 		setResizable(false);
-		setLocationRelativeTo(parent);
+		setLocationRelativeTo(MainFrame.getInstance());
 		
 		JPanel textPart = new JPanel(); 
 		textPart.setLayout(new BoxLayout(textPart, BoxLayout.Y_AXIS));
@@ -80,7 +83,7 @@ public class DialogAddEditStudent extends JDialog {
 		JPanel pDatumr = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel ldatumr = new JLabel("Datum rodjenja*");
 		ldatumr.setPreferredSize(dimLab);
-		JFormattedTextField datumr = new JFormattedTextField(sdf);
+		JFormattedTextField datumr = new JFormattedTextField(getDateMask("##.##.####"));
 		datumr.setPreferredSize(dimText);
 		if(!adding)
 			ime.setText(sdf.format(s.getDatumr()));
@@ -126,7 +129,7 @@ public class DialogAddEditStudent extends JDialog {
 		JPanel pDatumu = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel ldatumu = new JLabel("Datum upisa*");
 		ldatumu.setPreferredSize(dimLab);
-		JFormattedTextField datumu = new JFormattedTextField(sdf);
+		JFormattedTextField datumu = new JFormattedTextField(getDateMask("##.##.####"));
 		datumu.setPreferredSize(dimText);
 		if(!adding)
 			ime.setText(sdf.format(s.getDatumu()));
@@ -137,7 +140,6 @@ public class DialogAddEditStudent extends JDialog {
 		JPanel pGodina = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel lgodina = new JLabel("Trenutna godina studija*");
 		lgodina.setPreferredSize(dimLab);
-//		String god[] = {"I (Prva)", "II (Druga)", "III (Treca)", "IV (Cetvrta)"}; 
 		JComboBox<Godina> godina = new JComboBox<Godina>(Godina.values());
 		godina.setPreferredSize(dimText);
 		if(!adding) {
@@ -198,6 +200,7 @@ public class DialogAddEditStudent extends JDialog {
 	
 		JPanel buttonPart = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton ok = new JButton("Potvrdi");
+	//	ok.setEnabled(false);
 		JButton close = new JButton("Odustani");
 		
 		buttonPart.add(ok);
@@ -206,11 +209,39 @@ public class DialogAddEditStudent extends JDialog {
 		add(textPart, BorderLayout.CENTER);
 		add(buttonPart, BorderLayout.SOUTH);
 		
+/*		KeyAdapter adapter = new KeyAdapter(){
+			public void KeyReleased(java.awt.event.KeyEvent e) {
+				super.keyReleased(e);
+				if(ime.getText().trim().isEmpty() && prezime.getText().trim().isEmpty() &&
+				   adresa.getText().trim().isEmpty() && tel.getText().trim().isEmpty() &&
+				   index.getText().trim().isEmpty() && prosek.getText().trim().isEmpty()) 
+					ok.setEnabled(true);
+				else
+					ok.setEnabled(false);
+			}
+		};
+		
+		ime.addKeyListener(adapter);
+		prezime.addKeyListener(adapter);
+		adresa.addKeyListener(adapter);
+		tel.addKeyListener(adapter);
+		index.addKeyListener(adapter);
+		prosek.addKeyListener(adapter);*/
+		
 		ok.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				double prosecnaO = Double.parseDouble(prosek.getText());
+				
+				if(prosecnaO < 6 || prosecnaO > 10)
+					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Prosecna ocena mora biti izmedju 6.0 i 10.0!");
+				else {
+					if(adding)
+						StudentController.getInstance().addStudent();
+					else
+						StudentController.getInstance().editStudent();
+				}
 				
 			}
 		});
@@ -222,6 +253,20 @@ public class DialogAddEditStudent extends JDialog {
 				dispose();
 			}
 		});
+		
+		
+		
 	}
 
+	private MaskFormatter getDateMask(String format) {
+			MaskFormatter mask = null;
+			try {
+				mask = new MaskFormatter(format);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			mask.setPlaceholder("01.01.1950.");
+			
+			return mask;
+	}
 }

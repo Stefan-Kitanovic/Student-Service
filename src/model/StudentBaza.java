@@ -1,17 +1,40 @@
 package model;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JTable;
 
-public class StudentBaza extends AbstractTableModel {
+public class StudentBaza extends JTable {
 
 	private static final long serialVersionUID = 3646946754707848800L;
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+	
+	private static StudentBaza instance = null;
+	
+	public static StudentBaza getInstance() {
+		if(instance == null)
+			return new StudentBaza();
+		return instance;
+	}
+	
 	private static String[] columnName = {"Index", "Ime", "Prezime", "Datum rodjenja", "Adresa", "Telefon", "E-mail", "Datum upisa", "Godina studija", "Status", "Prosek",};
-	private static Class<?>[] columnType= {String.class, String.class, String.class, Date.class, String.class, String.class, String.class, Date.class, String.class, Status.class, Long.class};
-	private ArrayList<Student> studenti = new ArrayList<Student>();
+	private List<Student> studenti = new ArrayList<Student>();
+	
+	private StudentBaza() {
+		try {
+			studenti.add(new Student("Luka", "Jovanovic", new Date(sdf.parse("01.01.2000.").getTime()), "Karadjordjeva 83, Novi Sad", "021/333-555", "luka.jovanovic@mailinator.com", "RA 1/2019", new Date(sdf.parse("01.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+			studenti.add(new Student("Sofija", "Petrovic", new Date(sdf.parse("16.05.2000.").getTime()), "Milosa Pocerca 55, Sabac", "015/343-356", "sofija.petrovic@mailinator.com", "RA 5/2019", new Date(sdf.parse("11.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+			studenti.add(new Student("Stefan", "Nikolic", new Date(sdf.parse("18.03.2000.").getTime()), "Knez Mihajlova 16, Beograd", "011/9234-857", "stefan.nikolic@mailinator.com", "RA 3/2019", new Date(sdf.parse("03.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+			studenti.add(new Student("Dunja", "Ilic", new Date(sdf.parse("11.11.2000.").getTime()), "Petefi Sandora 15, Novi Sad", "021/433-958", "dunja.ilic@mailinator.com", "RA 2/2019", new Date(sdf.parse("01.07.2019.").getTime()), Godina.I, Status.S, 0, new ArrayList<Predmet>()));
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public int getRowCount() {
@@ -51,7 +74,7 @@ public class StudentBaza extends AbstractTableModel {
 		case 10:
 			return student.getProsek();
 		case 11:
-			return "Prikazi predmete";
+			return "Detaljnije";
 		}
 		return null;
 	}
@@ -60,15 +83,40 @@ public class StudentBaza extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return columnName[column];
 	}
-	
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		return columnType[columnIndex];
+
+	public List<Student> getStudenti(){
+		return studenti;
+	}
+
+	public void addStudent(Student s) {
+		studenti.add(s);
 	}
 	
-	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		super.setValueAt(aValue, rowIndex, columnIndex);
+	public void editStudent(Student s) {
+		for(Student student : studenti) {
+			if(student.getIndex().equals(s.getIndex())) {
+				student.setIme(s.getIme());
+				student.setPrezime(s.getPrezime());
+				student.setDatumr(s.getDatumr());
+				student.setAdresa(s.getAdresa());
+				student.setTel(s.getTel());
+				student.setEmail(s.getEmail());
+				student.setGodina(s.getGodina());
+				student.setStatus(s.getStatus());
+				student.setProsek(s.getProsek());
+				break;
+			}
+		}
+	}
+	
+	public void deleteStudent(String index) {
+		
+		for(Student student : studenti) {
+			if(student.getIndex().equals(index)) {
+				studenti.remove(student);
+				break;
+			}
+		}
 	}
 
 }

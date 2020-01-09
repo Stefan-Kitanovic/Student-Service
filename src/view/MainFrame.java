@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -22,7 +21,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import controller.PredmetController;
-import model.PredmetBaza;
 
 public class MainFrame extends JFrame {
 
@@ -33,7 +31,6 @@ public class MainFrame extends JFrame {
 	private Toolbar toolbar;
 	private JPanel centerPanel;
 	private StatusBar statusBar;
-	private JTable tableStudent;
 	private static String selectedTabName;
 	
 	private static MainFrame instance = null;
@@ -65,7 +62,7 @@ public class MainFrame extends JFrame {
 	
 	
 	private void initMenuBar() {
-		this.setJMenuBar(new MenuBar(this));
+		this.setJMenuBar(new MenuBar());
 	}
 	
 	private void initStatusBar() {
@@ -83,8 +80,9 @@ public class MainFrame extends JFrame {
 		centerPanel = new JPanel(new BorderLayout());
 		tabbedPane = new JTabbedPane();		
 		
-		JPanel studentPanel = new JPanel();
-		studentPanel.setBackground(new Color(255, 0, 0));		
+		JScrollPane studentPanel = new JScrollPane(new StudentTable());
+		studentPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
+		studentPanel.setBackground(Color.LIGHT_GRAY);		
 		tabbedPane.addTab("student", studentPanel);	
 		
 		JPanel profesoriPanel = new JPanel();
