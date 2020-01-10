@@ -15,6 +15,7 @@ public class PredmetBaza implements Serializable {
 	private static final long serialVersionUID = 617024959849324035L;
 	
 	private static PredmetBaza instance = null;
+	private static final String dataPath = "data/PredmetData.data";
 
 	public static PredmetBaza getInstance() {
 		if (instance == null) {
@@ -37,16 +38,16 @@ public class PredmetBaza implements Serializable {
 		columns.add("Profesor");
 		columns.add("Studenti");
 		
-		File data = new File("data/PredmetData.data");
+		File dataFile = new File(dataPath);
 		
-		if (data.exists())
-			predmeti = loadPredmetBazaData();
+		if (dataFile.exists())
+			predmeti = loadPredmetBazaData(dataFile);
 		else {
-			predmeti.add(new Predmet("test1", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test2", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test3", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test4", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test5", "test", "test", Godina.IV, new Profesor("test", "test", "1-2-34", "test test", "test", "test@test", "test 123", 123, "test", "test", new ArrayList<Predmet>()), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test1", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test2", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test3", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test4", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test5", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
 		}
 		
 	}
@@ -98,20 +99,20 @@ public class PredmetBaza implements Serializable {
 		Predmet predmet = predmeti.get(row);
 		
 		switch (column) {
-		case 0:
-			return predmet.getSifraPredmeta();
-		case 1:
-			return predmet.getNazivPredmeta();
-		case 2:
-			return predmet.getSemestar();
-		case 3:
-			return predmet.getGodinaStudija().toString();
-		case 4:
-			return predmet.getPredmetniProfesor().getIme() + " " + predmet.getPredmetniProfesor().getPrezime();
-		case 5:
-			return "Prikazi";
-		default:
-			return null;
+			case 0:
+				return predmet.getSifraPredmeta();
+			case 1:
+				return predmet.getNazivPredmeta();
+			case 2:
+				return predmet.getSemestar();
+			case 3:
+				return predmet.getGodinaStudija().toString();
+			case 4:
+				return predmet.getPredmetniProfesor().getIme() + " " + predmet.getPredmetniProfesor().getPrezime();
+			case 5:
+				return "Prikazi";
+			default:
+				return null;
 		}
 	}
 	
@@ -122,7 +123,7 @@ public class PredmetBaza implements Serializable {
 	public void savePredmetaBazaData() {
 
 		try {
-			FileOutputStream outFile = new FileOutputStream("data/PredmetData.data");
+			FileOutputStream outFile = new FileOutputStream(dataPath);
 			ObjectOutputStream out = new ObjectOutputStream(outFile);
 			out.writeObject(predmeti);
 			out.close();
@@ -133,11 +134,12 @@ public class PredmetBaza implements Serializable {
 		}		
 	}
 	
-	public List<Predmet> loadPredmetBazaData() {
+	@SuppressWarnings("unchecked")
+	public List<Predmet> loadPredmetBazaData(File dataFile) {
 		List<Predmet> ret = null;
 		
 		try {
-			FileInputStream inFile = new FileInputStream("data/PredmetData.data");
+			FileInputStream inFile = new FileInputStream(dataFile);
 			ObjectInputStream in = new ObjectInputStream(inFile);
 			ret = (List<Predmet>) in.readObject();
 			in.close();

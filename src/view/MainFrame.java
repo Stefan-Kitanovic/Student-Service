@@ -22,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import controller.PredmetController;
+import controller.ProfesorController;
 import controller.StudentController;
 
 public class MainFrame extends JFrame {
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame {
 	private StatusBar statusBar;
 	private static String selectedTabName;
 	private JTable predmetTable;
+	private JTable profesorTable;
 	
 	private static MainFrame instance = null;
 	
@@ -57,6 +59,7 @@ public class MainFrame extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				ProfesorController.getInstance().saveData();
 				PredmetController.getInstance().saveData();
 //				StudentController.getInstance().saveData(); //Ne radi ucitavanje/cuvanje baze studenata
 				System.exit(0);
@@ -95,8 +98,10 @@ public class MainFrame extends JFrame {
 		studentPanel.setBackground(Color.LIGHT_GRAY);		
 		tabbedPane.addTab("student", studentPanel);	
 		
-		JPanel profesoriPanel = new JPanel();
-		profesoriPanel.setBackground(new Color(0, 255, 0));
+		profesorTable = new ProfesorTable();
+		JScrollPane profesoriPanel = new JScrollPane(profesorTable);
+		profesoriPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
+		profesoriPanel.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("profesor", profesoriPanel);
 		
 		predmetTable = new PredmetTable();
