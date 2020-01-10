@@ -21,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import controller.PredmetController;
+import controller.StudentController;
 
 public class MainFrame extends JFrame {
 
@@ -55,6 +56,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				PredmetController.getInstance().saveData();
+//				StudentController.getInstance().saveData(); //Ne radi ucitavanje/cuvanje baze studenata
 				System.exit(0);
 			}
 		});

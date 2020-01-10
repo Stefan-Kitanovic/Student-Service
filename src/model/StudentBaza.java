@@ -1,6 +1,13 @@
 package model;
 
-import java.sql.Date;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,11 +15,12 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-public class StudentBaza extends JTable {
+public class StudentBaza extends JTable implements Serializable{
 
 	private static final long serialVersionUID = 3646946754707848800L;
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+	final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+	private static final File studentDB = new File("data/StudentData.data");
 	
 	private static StudentBaza instance = null;
 	
@@ -26,13 +34,18 @@ public class StudentBaza extends JTable {
 	private List<Student> studenti = new ArrayList<Student>();
 	
 	private StudentBaza() {
-		try {
-			studenti.add(new Student("Luka", "Jovanovic", new Date(sdf.parse("01.01.2000.").getTime()), "Karadjordjeva 83, Novi Sad", "021/333-555", "luka.jovanovic@mailinator.com", "RA 1/2019", new Date(sdf.parse("01.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
-			studenti.add(new Student("Sofija", "Petrovic", new Date(sdf.parse("16.05.2000.").getTime()), "Milosa Pocerca 55, Sabac", "015/343-356", "sofija.petrovic@mailinator.com", "RA 5/2019", new Date(sdf.parse("11.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
-			studenti.add(new Student("Stefan", "Nikolic", new Date(sdf.parse("18.03.2000.").getTime()), "Knez Mihajlova 16, Beograd", "011/9234-857", "stefan.nikolic@mailinator.com", "RA 3/2019", new Date(sdf.parse("03.07.2019.").getTime()), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
-			studenti.add(new Student("Dunja", "Ilic", new Date(sdf.parse("11.11.2000.").getTime()), "Petefi Sandora 15, Novi Sad", "021/433-958", "dunja.ilic@mailinator.com", "RA 2/2019", new Date(sdf.parse("01.07.2019.").getTime()), Godina.I, Status.S, 0, new ArrayList<Predmet>()));
-		}catch (ParseException e) {
-			e.printStackTrace();
+		
+		if(studentDB.exists())
+			loadStudentDataBase();
+		else {
+			try {
+				studenti.add(new Student("Luka", "Jovanovic", sdf.parse("01.01.2000."), "Karadjordjeva 83, Novi Sad", "021/333-555", "luka.jovanovic@mailinator.com", "RA 1/2019", sdf.parse("01.07.2019."), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+				studenti.add(new Student("Sofija", "Petrovic", sdf.parse("16.05.2000."), "Milosa Pocerca 55, Sabac", "015/343-356", "sofija.petrovic@mailinator.com", "RA 5/2019", sdf.parse("11.07.2019."), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+				studenti.add(new Student("Stefan", "Nikolic", sdf.parse("18.03.2000."), "Knez Mihajlova 16, Beograd", "011/9234-857", "stefan.nikolic@mailinator.com", "RA 3/2019", sdf.parse("03.07.2019."), Godina.I, Status.B, 0, new ArrayList<Predmet>()));
+				studenti.add(new Student("Dunja", "Ilic", sdf.parse("11.11.2000."), "Petefi Sandora 15, Novi Sad", "021/433-958", "dunja.ilic@mailinator.com", "RA 2/2019", sdf.parse("01.07.2019."), Godina.I, Status.S, 0, new ArrayList<Predmet>()));
+			}catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -118,5 +131,38 @@ public class StudentBaza extends JTable {
 			}
 		}
 	}
+	
+	public void saveStudentDataBase() {
+		ObjectOutputStream out = null;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(studentDB));
+			out.writeObject(studenti);
+			System.out.println("Studenti sacuvani");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
+	public List<Student> loadStudentDataBase(){
+		List<Student> retVal = null;
+		
+		ObjectInputStream in = null;
+		try {
+			in = new ObjectInputStream(new FileInputStream(studentDB));
+			retVal = (List<Student>) in.readObject();
+			System.out.println("Studenti ucitani");
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return retVal;
+	}
 }

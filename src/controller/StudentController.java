@@ -1,5 +1,6 @@
 package controller;
 
+import model.StudentBaza;
 
 public class StudentController {
 
@@ -23,5 +24,9 @@ public class StudentController {
 
 	public void deleteStudent() {
 	
+	}
+	
+	public void saveData() {
+		StudentBaza.getInstance().saveStudentDataBase();
 	}
 }
