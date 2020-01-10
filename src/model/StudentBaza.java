@@ -26,7 +26,7 @@ public class StudentBaza extends JTable implements Serializable{
 	
 	public static StudentBaza getInstance() {
 		if(instance == null)
-			return new StudentBaza();
+			instance = new StudentBaza();
 		return instance;
 	}
 	
@@ -71,7 +71,7 @@ public class StudentBaza extends JTable implements Serializable{
 		case 2:
 			return student.getPrezime();
 		case 3:
-			return student.getDatumr();
+			return sdf.format(student.getDatumr());
 		case 4:
 			return student.getAdresa();
 		case 5:
@@ -79,7 +79,7 @@ public class StudentBaza extends JTable implements Serializable{
 		case 6:
 			return student.getEmail();
 		case 7:
-			return student.getDatumu();
+			return sdf.format(student.getDatumu());
 		case 8:
 			return student.getGodina();
 		case 9:
@@ -146,6 +146,7 @@ public class StudentBaza extends JTable implements Serializable{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Student> loadStudentDataBase(){
 		List<Student> retVal = null;
 		

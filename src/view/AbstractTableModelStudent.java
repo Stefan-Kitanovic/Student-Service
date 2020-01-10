@@ -25,7 +25,7 @@ public class AbstractTableModelStudent extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if(columnIndex >= StudentBaza.getInstance().getColumnCount()) {
-			JButton btn = new JButton("Prikazi" + rowIndex); 
+			JButton btn = new JButton("" + rowIndex); 
 			return btn;
 		}
 		return StudentBaza.getInstance().getValueAt(rowIndex, columnIndex);
