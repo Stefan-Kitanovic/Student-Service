@@ -123,6 +123,9 @@ public class ProfesorBaza implements Serializable {
 	
 	public int getProfesorRow(String brojLicneKarte) {
 		
+		if (brojLicneKarte == null)
+			return -1;
+		
 		for (Profesor profesor : profesori)
 			if (profesor.getBrojLicneKarte().equals(brojLicneKarte))
 				return profesori.indexOf(profesor);

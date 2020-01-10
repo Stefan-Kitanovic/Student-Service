@@ -80,7 +80,11 @@ public class Toolbar extends JToolBar {
 					//Operacije sa profesorima
 					break;
 				case 2:
-					//Operacije sa predmetima
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+						break;
+					
+					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(false, MainFrame.getInstance().getSelectedPredmetRow());
+					dialogPredmet.setVisible(true);
 					break;
 			}
 				

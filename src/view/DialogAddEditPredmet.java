@@ -47,6 +47,7 @@ public class DialogAddEditPredmet extends JDialog {
 		} else {
 			setIconImage(new ImageIcon("icons/edit.png").getImage());
 			setTitle("Izmena profesora");
+				
 			predmet = PredmetBaza.getInstance().getPredmeti().get(row);
 		}
 		
@@ -70,7 +71,8 @@ public class DialogAddEditPredmet extends JDialog {
 		JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton buttonOdustani = new JButton("Odustani");
 		JButton buttonPotvrdi = new JButton("Potvrdi");
-		buttonPotvrdi.setEnabled(false);
+		if (adding)
+			buttonPotvrdi.setEnabled(false);
 		
 		panelButtons.add(buttonOdustani);
 		panelButtons.add(buttonPotvrdi);
@@ -86,8 +88,10 @@ public class DialogAddEditPredmet extends JDialog {
 		
 		JTextField textFieldSifra = new JTextField();
 		textFieldSifra.setPreferredSize(dimText);
+		
+		String sifraPredmeta = predmet.getSifraPredmeta();
 		if (!adding)
-			textFieldSifra.setText(predmet.getSifraPredmeta());
+			textFieldSifra.setText(sifraPredmeta);
 		
 		panelSifra.add(labelSifra);
 		panelSifra.add(textFieldSifra);
@@ -179,8 +183,8 @@ public class DialogAddEditPredmet extends JDialog {
 		for (Profesor profesor : ProfesorBaza.getInstance().getProfesori())
 			comboBoxProfesor.addItem(profesor.getPrezime() + " " + profesor.getTitula() + " " + profesor.getIme());
 		
+		comboBoxGodina.setSelectedIndex(0);
 		if (!adding) {
-			comboBoxGodina.setSelectedIndex(0);
 			int profesorRow = ProfesorBaza.getInstance().getProfesorRow(predmet.getPredmetniProfesor().getBrojLicneKarte());
 			
 			if (profesorRow != -1)
@@ -196,8 +200,12 @@ public class DialogAddEditPredmet extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				if ((adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText())) || textFieldSifra.getText().isEmpty() || textFieldNaziv.getText().isEmpty()) {
 					buttonPotvrdi.setEnabled(false);
-				} else {
+				} else if (!adding && sifraPredmeta.equals(textFieldSifra.getText())) {
 					buttonPotvrdi.setEnabled(true);
+				} else if (!adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText())) {
+					buttonPotvrdi.setEnabled(false);
+				} else {					
+					buttonPotvrdi.setEnabled(true);					
 				}
 			}
 			
@@ -217,11 +225,21 @@ public class DialogAddEditPredmet extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (adding) {
-					List<Profesor> profesori = ProfesorBaza.getInstance().getProfesori();
+				List<Profesor> profesori = ProfesorBaza.getInstance().getProfesori();
+				Profesor profesor;
+				
+				if (comboBoxProfesor.getSelectedIndex() == 0)
+					profesor = null;
+				else
+					profesor = profesori.get(comboBoxProfesor.getSelectedIndex()-1);
 					
-					PredmetController.getInstance().addPredmet(textFieldSifra.getText(), textFieldNaziv.getText(), izabraniSemestar, (Godina) comboBoxGodina.getSelectedItem(), profesori.get(comboBoxProfesor.getSelectedIndex()+1), new ArrayList<Student>());
+				if (adding) {
+					PredmetController.getInstance().addPredmet(textFieldSifra.getText(), textFieldNaziv.getText(), izabraniSemestar, (Godina) comboBoxGodina.getSelectedItem(), profesor, new ArrayList<Student>());
+				} else {
+					PredmetController.getInstance().editPredmet(row, textFieldSifra.getText(), textFieldNaziv.getText(), izabraniSemestar, (Godina) comboBoxGodina.getSelectedItem(), profesor);
 				}
+				
+				dispose();
 			}
 		});
 		

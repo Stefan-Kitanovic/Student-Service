@@ -43,11 +43,11 @@ public class PredmetBaza implements Serializable {
 		if (dataFile.exists())
 			predmeti = loadPredmetBazaData(dataFile);
 		else {
-			predmeti.add(new Predmet("test1", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test2", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test3", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test4", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test5", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test1", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("test2", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("test3", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("test4", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("test5", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
 		}
 		
 	}
@@ -58,19 +58,16 @@ public class PredmetBaza implements Serializable {
 		predmeti.add(new Predmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata));
 	}
 	
-	public void editPredmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
-			Profesor predmetniProfesor, List<Student> spisakStudenata) {	
+	public void editPredmet(int index, String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
+			Profesor predmetniProfesor) {	
 		
-		for (Predmet predmet : predmeti) {
-			if (predmet.getSifraPredmeta().equals(sifraPredmeta)) {				
-				predmet.setNazivPredmeta(nazivPredmeta);
-				predmet.setSemestar(semestar);
-				predmet.setGodinaStudija(godinaStudija);
-				predmet.setPredmetniProfesor(predmetniProfesor);
-				predmet.setSpisakStudenata(spisakStudenata);
-				break;
-			}
-		}
+		Predmet predmet = predmeti.get(index); 
+		
+		predmet.setSifraPredmeta(sifraPredmeta);;		
+		predmet.setNazivPredmeta(nazivPredmeta);
+		predmet.setSemestar(semestar);
+		predmet.setGodinaStudija(godinaStudija);
+		predmet.setPredmetniProfesor(predmetniProfesor);
 	}
 	
 	public void deletePredmet(String sifraPredmeta) {
@@ -117,7 +114,10 @@ public class PredmetBaza implements Serializable {
 			case 3:
 				return predmet.getGodinaStudija().toString();
 			case 4:
-				return predmet.getPredmetniProfesor().getIme() + " " + predmet.getPredmetniProfesor().getPrezime();
+				if (predmet.getPredmetniProfesor() == null)
+					return "Nema profesora";
+				else
+					return predmet.getPredmetniProfesor().getPrezime() + " " + predmet.getPredmetniProfesor().getTitula() + " " + predmet.getPredmetniProfesor().getIme();
 			case 5:
 				return "Prikazi";
 			default:

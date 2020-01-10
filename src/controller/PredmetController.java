@@ -29,8 +29,13 @@ private static PredmetController instance = null;
 		MainFrame.getInstance().updateView();
 	}
 	
-	public void editPredmet() {
-		
+	public void editPredmet(int row, String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
+			Profesor predmetniProfesor) {
+		PredmetBaza.getInstance().editPredmet(row, sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor);
+		if(row < 0)
+			return;
+			
+		MainFrame.getInstance().updateView();
 	}
 	
 	public void deletePredmet(int row) {
