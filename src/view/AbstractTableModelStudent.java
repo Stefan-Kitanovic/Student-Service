@@ -59,4 +59,9 @@ public class AbstractTableModelStudent extends AbstractTableModel {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return columnIndex == 11;
+	}
 }

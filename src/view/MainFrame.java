@@ -61,7 +61,7 @@ public class MainFrame extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				ProfesorController.getInstance().saveData();
 				PredmetController.getInstance().saveData();
-//				StudentController.getInstance().saveData(); //Ne radi ucitavanje/cuvanje baze studenata
+				StudentController.getInstance().saveData(); //Ne radi ucitavanje/cuvanje baze studenata
 				System.exit(0);
 			}
 		});
