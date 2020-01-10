@@ -22,6 +22,7 @@ public class Student implements Serializable{
 	private double prosek;
 	private List<Predmet> predmeti;
 	
+	public Student() {}
 	
 	public Student(String ime, String prezime, Date datumr, String adresa, String tel, String email, String index,
 			Date datumu, Godina godina, Status status, double prosek, List<Predmet> predmeti) {

@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
 	private JPanel centerPanel;
 	private StatusBar statusBar;
 	private static String selectedTabName;
+	private JTable studentTable;
 	private JTable predmetTable;
 	private JTable profesorTable;
 	
@@ -69,8 +70,10 @@ public class MainFrame extends JFrame {
 	
 	public void updateView() {
 		AbstractTableModelPredmet modelPredmet = (AbstractTableModelPredmet) predmetTable.getModel();
+		AbstractTableModelStudent modelStudent = (AbstractTableModelStudent) studentTable.getModel();
 		
 		modelPredmet.fireTableDataChanged();
+		modelStudent.fireTableDataChanged();
 		validate();
 	}
 	
@@ -93,7 +96,8 @@ public class MainFrame extends JFrame {
 		centerPanel = new JPanel(new BorderLayout());
 		tabbedPane = new JTabbedPane();		
 		
-		JScrollPane studentPanel = new JScrollPane(new StudentTable());
+		studentTable = new StudentTable();
+		JScrollPane studentPanel = new JScrollPane(studentTable);
 		studentPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
 		studentPanel.setBackground(Color.LIGHT_GRAY);		
 		tabbedPane.addTab("student", studentPanel);	

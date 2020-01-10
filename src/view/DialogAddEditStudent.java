@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -28,6 +30,7 @@ import controller.StudentController;
 import model.Godina;
 import model.Status;
 import model.Student;
+import model.Predmet;
 
 
 public class DialogAddEditStudent extends JDialog {
@@ -47,7 +50,7 @@ public class DialogAddEditStudent extends JDialog {
 			setTitle("Izmena studenta");
 		}
 		setLayout(new BorderLayout(40,40));
-		setSize(400, 425);
+		setSize(400, 455);
 		setResizable(false);
 		setLocationRelativeTo(MainFrame.getInstance());
 		
@@ -83,7 +86,7 @@ public class DialogAddEditStudent extends JDialog {
 		JPanel pDatumr = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel ldatumr = new JLabel("Datum rodjenja*");
 		ldatumr.setPreferredSize(dimLab);
-		JFormattedTextField datumr = new JFormattedTextField(getDateMask("##.##.####"));
+		JFormattedTextField datumr = new JFormattedTextField(getDateMask("##.##.####."));
 		datumr.setPreferredSize(dimText);
 		if(!adding)
 			ime.setText(sdf.format(s.getDatumr()));
@@ -112,6 +115,17 @@ public class DialogAddEditStudent extends JDialog {
 		pTel.add(ltel);
 		pTel.add(tel);
 		
+		//email
+		JPanel pEmail = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
+		JLabel lemail = new JLabel("E-mail adresa*");
+		ltel.setPreferredSize(dimLab);
+		JTextField email = new JTextField();
+		email.setPreferredSize(dimText);
+		if(!adding)
+			ime.setText(s.getEmail());
+		pEmail.add(lemail);
+		pEmail.add(email);
+		
 		//index
 		JPanel pIndex = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel lindex = new JLabel("Broj indeksa*");
@@ -129,7 +143,7 @@ public class DialogAddEditStudent extends JDialog {
 		JPanel pDatumu = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel ldatumu = new JLabel("Datum upisa*");
 		ldatumu.setPreferredSize(dimLab);
-		JFormattedTextField datumu = new JFormattedTextField(getDateMask("##.##.####"));
+		JFormattedTextField datumu = new JFormattedTextField(getDateMask("##.##.####."));
 		datumu.setPreferredSize(dimText);
 		if(!adding)
 			ime.setText(sdf.format(s.getDatumu()));
@@ -191,6 +205,7 @@ public class DialogAddEditStudent extends JDialog {
 		textPart.add(pDatumr);
 		textPart.add(pAdresa);
 		textPart.add(pTel);
+		textPart.add(pEmail);
 		textPart.add(pIndex);
 		textPart.add(pDatumu);
 		textPart.add(pGodina);
@@ -234,13 +249,48 @@ public class DialogAddEditStudent extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				double prosecnaO = Double.parseDouble(prosek.getText());
 				
-				if(prosecnaO < 6 || prosecnaO > 10)
-					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Prosecna ocena mora biti izmedju 6.0 i 10.0!");
-				else {
+				Date datumrDate = new Date();
+				Date datumuDate = new Date();
+				try {
+					datumrDate = sdf.parse(datumr.getText());
+					datumuDate = sdf.parse(datumu.getText());
+				} catch (NumberFormatException | ParseException e1) {
+					e1.printStackTrace();
+				}
+				
+				int dateRes = datumrDate.compareTo(datumuDate);
+				
+				if((prosecnaO < 6 && prosecnaO != 0) || prosecnaO > 10) {
+					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Prosecna ocena mora biti izmedju 6.0 i 10.0! (0 za studenta bez proseka)");
+				}else if(dateRes >= 0) {
+					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Datum rodjenja mora biti pre datuma upisa!");
+				}else {
+					Student st = new Student();
+					
+					Status state;
+					if(bu.isSelected())
+						state = Status.B;
+					else
+						state = Status.S;
+
+					st.setIme(ime.getText());
+					st.setPrezime(prezime.getText());
+					st.setDatumr(datumrDate);
+					st.setAdresa(adresa.getText());
+					st.setTel(tel.getText());
+					st.setEmail(email.getText());
+					st.setIndex(index.getText());
+					st.setDatumu(datumuDate);
+					st.setGodina((Godina) godina.getSelectedItem());
+					st.setStatus(state);
+					st.setProsek(prosecnaO);
+					st.setPredmeti(new ArrayList<Predmet>());
+					
 					if(adding)
-						StudentController.getInstance().addStudent();
+						StudentController.getInstance().addStudent(st);
 					else
 						StudentController.getInstance().editStudent();
+					dispose();
 				}
 				
 			}
