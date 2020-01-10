@@ -9,14 +9,14 @@ public class Predmet implements Serializable{
 	
 	private String sifraPredmeta;
 	private String nazivPredmeta;
-	private String semestar;
+	private Semestar semestar;
 	private Godina godinaStudija;
 	private Profesor predmetniProfesor;
 	private List<Student> spisakStudenata;
 	
 	public Predmet() {}
 	
-	public Predmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
+	public Predmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		super();
 		this.sifraPredmeta = sifraPredmeta;
@@ -35,7 +35,7 @@ public class Predmet implements Serializable{
 		return nazivPredmeta;
 	}
 	
-	public String getSemestar() {
+	public Semestar getSemestar() {
 		return semestar;
 	}
 	
@@ -55,7 +55,7 @@ public class Predmet implements Serializable{
 		this.nazivPredmeta = nazivPredmeta;
 	}
 	
-	public void setSemestar(String semestar) {
+	public void setSemestar(Semestar semestar) {
 		this.semestar = semestar;
 	}
 	

@@ -43,22 +43,22 @@ public class PredmetBaza implements Serializable {
 		if (dataFile.exists())
 			predmeti = loadPredmetBazaData(dataFile);
 		else {
-			predmeti.add(new Predmet("test1", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test2", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test3", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test4", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
-			predmeti.add(new Predmet("test5", "test", "test", Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test1", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test2", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test3", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test4", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
+			predmeti.add(new Predmet("test5", "test", Semestar.Letnji, Godina.IV, new Profesor(), new ArrayList<Student>()));
 		}
 		
 	}
 		
 	
-	public void addPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
+	public void addPredmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		predmeti.add(new Predmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata));
 	}
 	
-	public void editPredmet(String sifraPredmeta, String nazivPredmeta, String semestar, Godina godinaStudija,
+	public void editPredmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {	
 		
 		for (Predmet predmet : predmeti) {
@@ -91,6 +91,15 @@ public class PredmetBaza implements Serializable {
 		return predmeti;
 	}
 	
+	public Boolean predmetExists(String sifraPredmeta) {
+		
+		for (Predmet predmet : predmeti)
+			if (predmet.getSifraPredmeta().equalsIgnoreCase(sifraPredmeta.trim()))
+				return true;
+		
+		return false;
+	}
+	
 	public Predmet getRow(int row) {
 		return predmeti.get(row);
 	}
@@ -104,7 +113,7 @@ public class PredmetBaza implements Serializable {
 			case 1:
 				return predmet.getNazivPredmeta();
 			case 2:
-				return predmet.getSemestar();
+				return predmet.getSemestar().toString();
 			case 3:
 				return predmet.getGodinaStudija().toString();
 			case 4:

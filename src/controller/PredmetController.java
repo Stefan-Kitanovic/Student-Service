@@ -1,7 +1,13 @@
 package controller;
 
+import java.util.List;
+
+import model.Godina;
 import model.Predmet;
 import model.PredmetBaza;
+import model.Profesor;
+import model.Semestar;
+import model.Student;
 import view.MainFrame;
 
 public class PredmetController {
@@ -17,8 +23,10 @@ private static PredmetController instance = null;
 	
 	private PredmetController() {}
 	
-	public void addPredmet() {
-		
+	public void addPredmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
+			Profesor predmetniProfesor, List<Student> spisakStudenata) {
+		PredmetBaza.getInstance().addPredmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata);
+		MainFrame.getInstance().updateView();
 	}
 	
 	public void editPredmet() {

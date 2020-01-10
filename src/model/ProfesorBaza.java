@@ -112,6 +112,24 @@ public class ProfesorBaza implements Serializable {
 		return profesori.get(row);
 	}
 	
+	public Boolean exists(String brojLicneKarte) {
+		
+		for (Profesor profesor : profesori)
+			if (profesor.getBrojLicneKarte().equals(brojLicneKarte.trim()))
+				return true;
+			
+		return false;
+	}
+	
+	public int getProfesorRow(String brojLicneKarte) {
+		
+		for (Profesor profesor : profesori)
+			if (profesor.getBrojLicneKarte().equals(brojLicneKarte))
+				return profesori.indexOf(profesor);
+				
+		return -1;
+	}
+	
 	public String getValueAt(int row, int column) {
 		Profesor profesor = profesori.get(row);
 		

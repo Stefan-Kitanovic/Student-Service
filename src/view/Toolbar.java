@@ -47,14 +47,15 @@ public class Toolbar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					DialogAddEditStudent dialog = new DialogAddEditStudent(true, null);
-					dialog.setVisible(true);
+					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(true, null);
+					dialogStudent.setVisible(true);
 					break;
 				case 1:
 					//Operacije sa profesorima
 					break;
 				case 2:
-					//Operacije sa predmetima
+					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, MainFrame.getInstance().getSelectedPredmetRow());
+					dialogPredmet.setVisible(true);
 					break;
 			}
 				
