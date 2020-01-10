@@ -1,3 +1,5 @@
+package main;
+
 import controller.PredmetController;
 import model.PredmetBaza;
 import model.StudentBaza;
