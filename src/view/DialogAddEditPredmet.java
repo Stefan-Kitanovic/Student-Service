@@ -185,10 +185,15 @@ public class DialogAddEditPredmet extends JDialog {
 		
 		comboBoxGodina.setSelectedIndex(0);
 		if (!adding) {
-			int profesorRow = ProfesorBaza.getInstance().getProfesorRow(predmet.getPredmetniProfesor().getBrojLicneKarte());
-			
-			if (profesorRow != -1)
-				comboBoxGodina.setSelectedIndex(profesorRow);
+			int profesorRow;
+			if (predmet.getPredmetniProfesor() != null) {
+				profesorRow = ProfesorBaza.getInstance().getProfesorRow(predmet.getPredmetniProfesor().getBrojLicneKarte());
+				if (profesorRow != -1)
+					comboBoxGodina.setSelectedIndex(profesorRow);			
+			} else {
+				comboBoxGodina.setSelectedIndex(0);
+			}
+							
 		}
 		
 		KeyListener keyListener = new KeyListener() {
