@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -33,6 +34,7 @@ public class MainFrame extends JFrame {
 	private JPanel centerPanel;
 	private StatusBar statusBar;
 	private static String selectedTabName;
+	private JTable predmetTable;
 	
 	private static MainFrame instance = null;
 	
@@ -62,6 +64,12 @@ public class MainFrame extends JFrame {
 		});
 	}
 	
+	public void updateView() {
+		AbstractTableModelPredmet modelPredmet = (AbstractTableModelPredmet) predmetTable.getModel();
+		
+		modelPredmet.fireTableDataChanged();
+		validate();
+	}
 	
 	private void initMenuBar() {
 		this.setJMenuBar(new MenuBar());
@@ -91,7 +99,8 @@ public class MainFrame extends JFrame {
 		profesoriPanel.setBackground(new Color(0, 255, 0));
 		tabbedPane.addTab("profesor", profesoriPanel);
 		
-		JScrollPane predmetiPanel = new JScrollPane(new PredmetTable());
+		predmetTable = new PredmetTable();
+		JScrollPane predmetiPanel = new JScrollPane(predmetTable);
 		predmetiPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
 		predmetiPanel.setBackground(Color.LIGHT_GRAY);
 		tabbedPane.addTab("predmet", predmetiPanel);		
@@ -163,5 +172,8 @@ public class MainFrame extends JFrame {
 		return selectedTabName;
 	}
 	
+	public int getSelectedPredmetRow() {
+		return predmetTable.getSelectedRow();
+	}
 	
 }

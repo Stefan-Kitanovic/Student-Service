@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import com.sun.glass.events.KeyEvent;
 
+import controller.PredmetController;
 import model.PredmetBaza;
 
 public class Toolbar extends JToolBar {
@@ -102,7 +103,8 @@ public class Toolbar extends JToolBar {
 					//Operacije sa profesorima
 					break;
 				case 2:
-					//Operacije sa predmetima
+					int row = MainFrame.getInstance().getSelectedPredmetRow();
+					PredmetController.getInstance().deletePredmet(row);
 					break;
 			}
 				

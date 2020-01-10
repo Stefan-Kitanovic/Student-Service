@@ -90,6 +90,10 @@ public class PredmetBaza implements Serializable {
 		return predmeti;
 	}
 	
+	public Predmet getRow(int row) {
+		return predmeti.get(row);
+	}
+	
 	public String getValueAt(int row, int column) {
 		Predmet predmet = predmeti.get(row);
 		
