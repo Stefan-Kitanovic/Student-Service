@@ -110,7 +110,10 @@ public class PredmetBaza implements Serializable {
 			case 1:
 				return predmet.getNazivPredmeta();
 			case 2:
-				return predmet.getSemestar().toString();
+				if (predmet.getSemestar() == Semestar.Zimski)
+					return Integer.toString((predmet.getGodinaStudija().ordinal()+1)*2 - 1);
+				else
+					return Integer.toString((predmet.getGodinaStudija().ordinal()+1)*2);
 			case 3:
 				return predmet.getGodinaStudija().toString();
 			case 4:

@@ -93,6 +93,8 @@ public class DialogAddEditPredmet extends JDialog {
 		if (!adding)
 			textFieldSifra.setText(sifraPredmeta);
 		
+		JLabel labelSifraExists = new JLabel("Sifra vec postoji!");
+		labelSifraExists.setVisible(false);
 		panelSifra.add(labelSifra);
 		panelSifra.add(textFieldSifra);
 		
@@ -130,13 +132,6 @@ public class DialogAddEditPredmet extends JDialog {
 			}
 		}
 		
-		Semestar izabraniSemestar;
-		
-		if (letnji.isSelected())
-			izabraniSemestar = Semestar.Letnji;
-		else
-			izabraniSemestar = Semestar.Zimski;
-		
 		panelSemestar.add(letnji, FlowLayout.LEFT);
 		panelSemestar.add(zimski, FlowLayout.LEFT);
 		
@@ -149,22 +144,8 @@ public class DialogAddEditPredmet extends JDialog {
 		JComboBox<Godina> comboBoxGodina = new JComboBox<Godina>(Godina.values());
 		comboBoxGodina.setPreferredSize(dimText);
 		
-		if (!adding) {
-			switch(predmet.getGodinaStudija()) {
-				case I:
-					comboBoxGodina.setSelectedIndex(0);
-					break;
-				case II:
-					comboBoxGodina.setSelectedIndex(1);
-					break;
-				case III:
-					comboBoxGodina.setSelectedIndex(2);
-					break;
-				case IV:
-					comboBoxGodina.setSelectedIndex(3);
-					break;
-			}
-		}
+		if (!adding)
+			comboBoxGodina.setSelectedItem(predmet.getGodinaStudija());
 		
 		panelGodina.add(labelGodina);
 		panelGodina.add(comboBoxGodina);
@@ -203,15 +184,27 @@ public class DialogAddEditPredmet extends JDialog {
 							
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if ((adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText())) || textFieldSifra.getText().isEmpty() || textFieldNaziv.getText().isEmpty()) {
+				if (textFieldSifra.getText().isEmpty() || textFieldNaziv.getText().isEmpty()) {
 					buttonPotvrdi.setEnabled(false);
+					labelSifraExists.setVisible(false);
+					
+				} else if ((adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText()))) {
+					buttonPotvrdi.setEnabled(false);
+					labelSifraExists.setVisible(true);
+					
 				} else if (!adding && sifraPredmeta.equals(textFieldSifra.getText())) {
 					buttonPotvrdi.setEnabled(true);
+					labelSifraExists.setVisible(false);
+					
 				} else if (!adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText())) {
 					buttonPotvrdi.setEnabled(false);
+					labelSifraExists.setVisible(true);
+					
 				} else {					
-					buttonPotvrdi.setEnabled(true);					
+					buttonPotvrdi.setEnabled(true);		
+					labelSifraExists.setVisible(false);
 				}
+
 			}
 			
 			@Override
@@ -237,6 +230,13 @@ public class DialogAddEditPredmet extends JDialog {
 					profesor = null;
 				else
 					profesor = profesori.get(comboBoxProfesor.getSelectedIndex()-1);
+				
+				Semestar izabraniSemestar;
+				
+				if (letnji.isSelected())
+					izabraniSemestar = Semestar.Letnji;
+				else
+					izabraniSemestar = Semestar.Zimski;
 					
 				if (adding) {
 					PredmetController.getInstance().addPredmet(textFieldSifra.getText(), textFieldNaziv.getText(), izabraniSemestar, (Godina) comboBoxGodina.getSelectedItem(), profesor, new ArrayList<Student>());
@@ -255,6 +255,7 @@ public class DialogAddEditPredmet extends JDialog {
 		panelProfesor.add(comboBoxProfesor);
 		
 		panelText.add(panelSifra);
+		panelText.add(labelSifraExists);
 		panelText.add(panelNaziv);
 		panelText.add(panelGodina);
 		panelText.add(panelSemestar);
@@ -262,7 +263,6 @@ public class DialogAddEditPredmet extends JDialog {
 				
 		add(panelText, BorderLayout.CENTER);
 		add(panelButtons, BorderLayout.SOUTH);
-		
 		
 	}
 }
