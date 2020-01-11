@@ -12,6 +12,11 @@ import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
 
+import controller.PredmetController;
+import controller.ProfesorController;
+import controller.StudentController;
+import model.StudentBaza;
+
 
 public class MenuBar extends JMenuBar {
 
@@ -90,13 +95,6 @@ public class MenuBar extends JMenuBar {
 			}
 		});
 		
-		miClose.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
 		
 		miEdit.addActionListener(new ActionListener() {
 			
@@ -134,13 +132,23 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					//Brisanje studenta
+					int row = MainFrame.getInstance().getSelectedStudentRow();
+					if(row < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za brisanje!");
+						break;
+					}
+					String message = String.format("Student %s ce biti uklonjen iz baze. Nastaviti?", StudentBaza.getInstance().getValueAt(row, 0));
+					int opt = JOptionPane.showConfirmDialog(MainFrame.getInstance(), message, "Brisanje", JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE);
+					if(opt == 0)
+						StudentController.getInstance().deleteStudent(row);
 					break;
 				case 1:
-					//Brisanje profesora
+					int profesorRow = MainFrame.getInstance().getSelectedProfesorRow();
+					ProfesorController.getInstance().deleteProfesor(profesorRow);
 					break;
 				case 2:
-					//Brisanje predmeta
+					int predmetRow = MainFrame.getInstance().getSelectedPredmetRow();
+					PredmetController.getInstance().deletePredmet(predmetRow);
 					break;
 				}
 			}
@@ -161,6 +169,14 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				
 				
+			}
+		});
+		
+		miClose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 	}

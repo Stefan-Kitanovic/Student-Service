@@ -31,8 +31,10 @@ public class StudentController {
 		MainFrame.getInstance().updateView();
 	}
 
-	public void deleteStudent() {
-	
+	public void deleteStudent(int row) {
+		Student s = StudentBaza.getInstance().getStudenti().get(row);
+		StudentBaza.getInstance().deleteStudent(s.getIndex());
+		MainFrame.getInstance().updateView();
 	}
 	
 	public void saveData() {

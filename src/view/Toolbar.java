@@ -20,7 +20,9 @@ import com.sun.glass.events.KeyEvent;
 
 import controller.PredmetController;
 import controller.ProfesorController;
+import controller.StudentController;
 import model.PredmetBaza;
+import model.StudentBaza;
 
 public class Toolbar extends JToolBar {
 
@@ -43,7 +45,9 @@ public class Toolbar extends JToolBar {
 		
 	
 		Action addNew = new AbstractAction() {
-			
+
+			private static final long serialVersionUID = 764493771615865398L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
@@ -70,7 +74,9 @@ public class Toolbar extends JToolBar {
 		btnNew.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK), "addNew");
 		
 		Action edit = new AbstractAction() {
-			
+
+			private static final long serialVersionUID = -3136577979508590214L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
@@ -105,12 +111,22 @@ public class Toolbar extends JToolBar {
 		btnEdit.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK), "edit");
 		
 		Action delete = new AbstractAction() {
-			
+		
+			private static final long serialVersionUID = 8459380753171638165L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					//Operacije sa studentima
+					int row = MainFrame.getInstance().getSelectedStudentRow();
+					if(row < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za brisanje!");
+						break;
+					}
+					String message = String.format("Student %s ce biti uklonjen iz baze. Nastaviti?", StudentBaza.getInstance().getValueAt(row, 0));
+					int opt = JOptionPane.showConfirmDialog(MainFrame.getInstance(), message, "Brisanje", JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE);
+					if(opt == 0)
+						StudentController.getInstance().deleteStudent(row);
 					break;
 				case 1:
 					int profesorRow = MainFrame.getInstance().getSelectedProfesorRow();
@@ -132,7 +148,9 @@ public class Toolbar extends JToolBar {
 		btnDelete.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK), "delete");
 		
 		Action addStudentToPredmet = new AbstractAction() {
-			
+
+			private static final long serialVersionUID = 2485305410559398316L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
@@ -151,7 +169,9 @@ public class Toolbar extends JToolBar {
 		btnAddStudentToPredmet.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), "addStudentToPredmet");
 
 		Action addProfesorToPredmet = new AbstractAction() {
-			
+
+			private static final long serialVersionUID = -8690826910861696844L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
@@ -179,7 +199,9 @@ public class Toolbar extends JToolBar {
 		btnAddProfesorToPredmet.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK), "addProfesorToPredmet");
 		
 		Action removeProfesorFromPredmet = new AbstractAction() {
-			
+
+			private static final long serialVersionUID = -6038428020968484672L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {

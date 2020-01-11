@@ -228,7 +228,7 @@ public class DialogAddEditStudent extends JDialog {
 		add(textPart, BorderLayout.CENTER);
 		add(buttonPart, BorderLayout.SOUTH);
 		
-/*		KeyListener fix = new KeyListener() {
+		KeyListener fix = new KeyListener() {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {}
@@ -253,7 +253,7 @@ public class DialogAddEditStudent extends JDialog {
 		adresa.addKeyListener(fix);
 		tel.addKeyListener(fix);
 		index.addKeyListener(fix);
-		prosek.addKeyListener(fix);*/
+		prosek.addKeyListener(fix);
 		
 		ok.addActionListener(new ActionListener() {
 			
@@ -315,7 +315,6 @@ public class DialogAddEditStudent extends JDialog {
 				dispose();
 			}
 		});
-		
 		
 		
 	}
