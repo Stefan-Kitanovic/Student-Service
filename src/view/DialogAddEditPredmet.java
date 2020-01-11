@@ -145,7 +145,7 @@ public class DialogAddEditPredmet extends JDialog {
 		comboBoxGodina.setPreferredSize(dimText);
 		
 		if (!adding)
-			comboBoxGodina.setSelectedItem(predmet.getGodinaStudija());
+			comboBoxGodina.setSelectedIndex(predmet.getGodinaStudija().ordinal());
 		
 		panelGodina.add(labelGodina);
 		panelGodina.add(comboBoxGodina);
@@ -163,16 +163,15 @@ public class DialogAddEditPredmet extends JDialog {
 
 		for (Profesor profesor : ProfesorBaza.getInstance().getProfesori())
 			comboBoxProfesor.addItem(profesor.getPrezime() + " " + profesor.getTitula() + " " + profesor.getIme());
-		
-		comboBoxGodina.setSelectedIndex(0);
+	
 		if (!adding) {
 			int profesorRow;
 			if (predmet.getPredmetniProfesor() != null) {
 				profesorRow = ProfesorBaza.getInstance().getProfesorRow(predmet.getPredmetniProfesor().getBrojLicneKarte());
 				if (profesorRow != -1)
-					comboBoxGodina.setSelectedIndex(profesorRow);			
+					comboBoxProfesor.setSelectedIndex(profesorRow);			
 			} else {
-				comboBoxGodina.setSelectedIndex(0);
+				comboBoxProfesor.setSelectedIndex(0);
 			}
 							
 		}
@@ -263,6 +262,5 @@ public class DialogAddEditPredmet extends JDialog {
 				
 		add(panelText, BorderLayout.CENTER);
 		add(panelButtons, BorderLayout.SOUTH);
-		
 	}
 }
