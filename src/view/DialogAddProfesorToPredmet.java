@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.PredmetController;
-import controller.ProfesorController;
 import model.ProfesorBaza;
 
 public class DialogAddProfesorToPredmet extends JDialog {

@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-import com.sun.istack.internal.Nullable;
 
 public class Predmet implements Serializable{
 

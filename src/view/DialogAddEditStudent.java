@@ -223,6 +223,8 @@ public class DialogAddEditStudent extends JDialog {
 		JButton close = new JButton("Odustani");
 		
 		buttonPart.add(ok);
+		if(adding)
+			ok.setEnabled(false);
 		buttonPart.add(close);
 		
 		add(textPart, BorderLayout.CENTER);
@@ -235,12 +237,12 @@ public class DialogAddEditStudent extends JDialog {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(ime.getText().trim().isEmpty() && prezime.getText().trim().isEmpty() &&
-				   adresa.getText().trim().isEmpty() && tel.getText().trim().isEmpty() &&
-				   index.getText().trim().isEmpty() && prosek.getText().trim().isEmpty()) 
-					ok.setEnabled(true);
-				else
+				if(ime.getText().trim().isEmpty() || prezime.getText().trim().isEmpty() ||
+				   adresa.getText().trim().isEmpty() || tel.getText().trim().isEmpty() ||
+				   index.getText().trim().isEmpty() || prosek.getText().trim().isEmpty()) 
 					ok.setEnabled(false);
+				else
+					ok.setEnabled(true);
 				
 			}
 			

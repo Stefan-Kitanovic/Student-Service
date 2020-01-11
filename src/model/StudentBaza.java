@@ -100,9 +100,9 @@ public class StudentBaza extends JTable implements Serializable{
 		case 7:
 			return sdf.format(student.getDatumu());
 		case 8:
-			return student.getGodina();
+			return student.getGodina().toString();
 		case 9:
-			return student.getStatus();
+			return student.getStatus().toString();
 		case 10:
 			double pr = student.getProsek();
 			if(pr == 0)
