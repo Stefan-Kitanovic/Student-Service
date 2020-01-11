@@ -6,6 +6,7 @@ import model.Godina;
 import model.Predmet;
 import model.PredmetBaza;
 import model.Profesor;
+import model.ProfesorBaza;
 import model.Semestar;
 import model.Student;
 import view.MainFrame;
@@ -51,4 +52,9 @@ private static PredmetController instance = null;
 		PredmetBaza.getInstance().savePredmetaBazaData();
 	}
 	
+	public void addProfesorToPredmet(String brojLicneKarte, int row) {
+		Profesor profesor = ProfesorBaza.getInstance().getProfesorById(brojLicneKarte);
+		PredmetBaza.getInstance().addProfesorToPredmet(profesor, row);
+		MainFrame.getInstance().updateView();	
+	}
 }

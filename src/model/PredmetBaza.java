@@ -80,6 +80,11 @@ public class PredmetBaza implements Serializable {
 		}
 	}
 	
+	public void addProfesorToPredmet(Profesor profesor, int row) {
+		Predmet predmet = predmeti.get(row);
+		predmet.setPredmetniProfesor(profesor);
+	}
+	
 	public int getColumnCount() {
 		return columns.size() - 1;
 	}

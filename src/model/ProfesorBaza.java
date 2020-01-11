@@ -108,6 +108,14 @@ public class ProfesorBaza implements Serializable {
 		return profesori;
 	}
 	
+	public Profesor getProfesorById(String brojLicneKarte) {
+		for (Profesor profesor : profesori)
+			if (profesor.getBrojLicneKarte().equals(brojLicneKarte.trim()))
+				return profesor;
+		
+		return null;
+	}
+	
 	public Profesor getRow(int row) {
 		return profesori.get(row);
 	}

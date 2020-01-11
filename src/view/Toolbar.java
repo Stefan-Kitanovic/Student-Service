@@ -4,13 +4,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
@@ -147,6 +146,15 @@ public class Toolbar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+						return;
+					
+					if (PredmetBaza.getInstance().getRow(MainFrame.getInstance().getSelectedPredmetRow()).getPredmetniProfesor() != null) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Predmet vec ima profesora!");
+					} else {
+						DialogAddProfesorToPredmet dialogProfesorToPredmet = new DialogAddProfesorToPredmet(MainFrame.getInstance().getSelectedPredmetRow());
+						dialogProfesorToPredmet.setVisible(true);						
+					}
 					
 				}
 				

@@ -65,7 +65,7 @@ public class DialogAddEditPredmet extends JDialog {
 		panelText.setLayout(new BoxLayout(panelText, BoxLayout.Y_AXIS));
 		
 		Dimension dimLabel = new Dimension((int) (dialogWidth*0.4), 20);
-		Dimension dimText = new Dimension((int) (dialogHeight*0.5), 20);
+		Dimension dimText = new Dimension((int) (dialogWidth*0.5), 20);
 		
 		
 		JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));

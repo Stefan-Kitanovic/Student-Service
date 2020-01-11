@@ -3,7 +3,6 @@ package view;
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
-import model.PredmetBaza;
 import model.ProfesorBaza;
 
 public class AbstractTableModelProfesor extends AbstractTableModel {
