@@ -18,6 +18,7 @@ public class PredmetTable extends JTable {
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setAutoCreateRowSorter(true);
 		this.setModel(new AbstractTableModelPredmet());
+		new ButtonColumnPredmet(this, 5);
 	}
 
 	@Override

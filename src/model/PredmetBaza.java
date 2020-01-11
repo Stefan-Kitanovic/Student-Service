@@ -81,7 +81,7 @@ public class PredmetBaza implements Serializable {
 	}
 	
 	public int getColumnCount() {
-		return columns.size();
+		return columns.size() - 1;
 	}
 	
 	public List<Predmet> getPredmeti() {

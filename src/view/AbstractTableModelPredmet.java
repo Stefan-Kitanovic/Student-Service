@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 import model.PredmetBaza;
@@ -10,7 +11,7 @@ public class AbstractTableModelPredmet extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return PredmetBaza.getInstance().getColumnCount();
+		return PredmetBaza.getInstance().getColumnCount() + 1;
 	}
 
 	@Override
@@ -24,9 +25,31 @@ public class AbstractTableModelPredmet extends AbstractTableModel {
 	}
 
 	@Override
-	public String getColumnName(int index) {
-		return PredmetBaza.getInstance().getColumnName(index);
+	public String getColumnName(int column) {
+		if (column >= PredmetBaza.getInstance().getColumnCount())
+			return "Studenti";
+		return PredmetBaza.getInstance().getColumnName(column);
 	}
 
+	@Override
+	public Class<?> getColumnClass(int column) {
+		switch(column) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5: 
+				return JButton.class;
+			default: 
+				return null;
+		}
+	}
+
+	@Override
+	public boolean isCellEditable(int row, int column) {
+		return column == 5;
+	}
+	
 	
 }
