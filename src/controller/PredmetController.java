@@ -57,4 +57,9 @@ private static PredmetController instance = null;
 		PredmetBaza.getInstance().addProfesorToPredmet(profesor, row);
 		MainFrame.getInstance().updateView();	
 	}
+	
+	public void removeProfesorFromPredmet(int row) {
+		PredmetBaza.getInstance().removeProfesorFromPredmet(row);
+		MainFrame.getInstance().updateView();	
+	}
 }

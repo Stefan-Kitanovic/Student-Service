@@ -145,9 +145,11 @@ public class MainFrame extends JFrame {
 				if (tabbedPane.getSelectedIndex() == 2) {
 					toolbar.setBtnAddStudentToPredmetVisible(true);
 					toolbar.setBtnAddProfesorToPredmetVisible(true);
+					toolbar.setBtnRemoveProfesorFromPredmet(true);
 				} else {
 					toolbar.setBtnAddStudentToPredmetVisible(false);
 					toolbar.setBtnAddProfesorToPredmetVisible(false);
+					toolbar.setBtnRemoveProfesorFromPredmet(false);
 				}
 				
 				selectedTabName = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());

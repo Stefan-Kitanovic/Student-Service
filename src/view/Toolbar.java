@@ -31,6 +31,7 @@ public class Toolbar extends JToolBar {
 	private JButton btnEdit;
 	private JButton btnDelete;
 	private JButton btnSearch;
+	private JButton btnRemoveProfesorFromPredmet;
 	
 	public Toolbar(int height) {		
 		super(SwingConstants.HORIZONTAL);
@@ -169,6 +170,27 @@ public class Toolbar extends JToolBar {
 		btnAddProfesorToPredmet.getActionMap().put("addProfesorToPredmet", addProfesorToPredmet);
 		btnAddProfesorToPredmet.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK), "addProfesorToPredmet");
 		
+		Action removeProfesorFromPredmet = new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (MainFrame.getInstance().getSelectedTab() == 2) {
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+						return;
+					
+					PredmetBaza.getInstance().removeProfesorFromPredmet(MainFrame.getInstance().getSelectedPredmetRow());
+				}			
+			}
+		};
+		
+		btnRemoveProfesorFromPredmet = new JButton(removeProfesorFromPredmet);
+		btnRemoveProfesorFromPredmet.setIcon(new ImageIcon(new ImageIcon("icons/close.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+		btnRemoveProfesorFromPredmet.setToolTipText("Uklanjanje profesora sa izabranog predmeta");
+		btnRemoveProfesorFromPredmet.setVisible(false);
+		
+		btnRemoveProfesorFromPredmet.getActionMap().put("removeProfesorFromPredmet", removeProfesorFromPredmet);
+		btnRemoveProfesorFromPredmet.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK), "removeProfesorFromPredmet");
+		
 		btnSearch = new JButton();
 		btnSearch.setIcon(new ImageIcon(new ImageIcon("icons/search.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
 		btnSearch.setToolTipText("Pretraga");
@@ -183,6 +205,7 @@ public class Toolbar extends JToolBar {
 		leftPanel.add(btnDelete);
 		leftPanel.add(btnAddStudentToPredmet);
 		leftPanel.add(btnAddProfesorToPredmet);
+		leftPanel.add(btnRemoveProfesorFromPredmet);
 		
 		rightPanel.add(searchBar);
 		rightPanel.add(btnSearch);
@@ -197,6 +220,10 @@ public class Toolbar extends JToolBar {
 
 	public void setBtnAddProfesorToPredmetVisible(Boolean flag) {
 		this.btnAddProfesorToPredmet.setVisible(flag);
+	}
+	
+	public void setBtnRemoveProfesorFromPredmet(Boolean flag) {
+		this.btnRemoveProfesorFromPredmet.setVisible(flag);
 	}
 	
 	public void setTooltips() {
