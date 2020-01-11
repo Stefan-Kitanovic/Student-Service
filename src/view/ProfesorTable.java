@@ -17,6 +17,7 @@ public class ProfesorTable extends JTable {
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setAutoCreateRowSorter(true);
 		this.setModel(new AbstractTableModelProfesor());
+		new ButtonColumnProfesor(this, 10);
 	}
 	
 	@Override
