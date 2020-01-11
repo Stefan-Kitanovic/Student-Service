@@ -1,5 +1,6 @@
 package controller;
 
+import model.Profesor;
 import model.ProfesorBaza;
 import view.MainFrame;
 
@@ -25,7 +26,12 @@ private static ProfesorController instance = null;
 	}
 	
 	public void deleteProfesor(int row) {
-
+		if(row < 0)
+			return;
+		
+		Profesor profesor = ProfesorBaza.getInstance().getRow(row);
+		ProfesorBaza.getInstance().deleteProfesor(profesor.getBrojLicneKarte());
+		MainFrame.getInstance().updateView();	
 	}
 	
 	public void saveData() {

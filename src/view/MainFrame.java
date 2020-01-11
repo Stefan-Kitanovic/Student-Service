@@ -71,7 +71,9 @@ public class MainFrame extends JFrame {
 	public void updateView() {
 		AbstractTableModelPredmet modelPredmet = (AbstractTableModelPredmet) predmetTable.getModel();
 		AbstractTableModelStudent modelStudent = (AbstractTableModelStudent) studentTable.getModel();
+		AbstractTableModelProfesor modelProfesor = (AbstractTableModelProfesor) profesorTable.getModel();
 		
+		modelProfesor.fireTableDataChanged();
 		modelPredmet.fireTableDataChanged();
 		modelStudent.fireTableDataChanged();
 		validate();
@@ -189,6 +191,10 @@ public class MainFrame extends JFrame {
 	
 	public int getSelectedStudentRow() {
 		return studentTable.getSelectedRow();
+	}
+	
+	public int getSelectedProfesorRow() {
+		return profesorTable.getSelectedRow();
 	}
 	
 	public Dimension getFrameSize() {
