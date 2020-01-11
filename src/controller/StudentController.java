@@ -26,8 +26,9 @@ public class StudentController {
 		MainFrame.getInstance().updateView();
 	}
 	
-	public void editStudent() {
-		
+	public void editStudent(Student s) {
+		StudentBaza.getInstance().editStudent(s);
+		MainFrame.getInstance().updateView();
 	}
 
 	public void deleteStudent() {

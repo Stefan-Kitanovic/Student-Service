@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
@@ -75,7 +76,7 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					DialogAddEditStudent dialog = new DialogAddEditStudent(true, null);
+					DialogAddEditStudent dialog = new DialogAddEditStudent(true, -1);
 					dialog.setVisible(true);
 					break;
 				case 1:
@@ -103,14 +104,21 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					//Izmena Studenta
-					break;
+					int row = MainFrame.getInstance().getSelectedStudentRow();
+					if(row < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za izmenu!");
+						break;
+					}
+					DialogAddEditStudent dialog = new DialogAddEditStudent(false, row);
+					dialog.setVisible(true);
 				case 1:
 					//Izmena profesora
 					break;
 				case 2:
-					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet za izmenu!");
 						break;
+					}
 					
 					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(false, MainFrame.getInstance().getSelectedPredmetRow());
 					dialogPredmet.setVisible(true);

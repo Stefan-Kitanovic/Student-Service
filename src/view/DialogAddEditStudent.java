@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,12 +26,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import com.sun.istack.internal.Nullable;
-
 import controller.StudentController;
 import model.Godina;
 import model.Status;
 import model.Student;
+import model.StudentBaza;
 import model.Predmet;
 
 
@@ -39,15 +40,19 @@ public class DialogAddEditStudent extends JDialog {
 	
 	SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy.");
 
-	public DialogAddEditStudent(Boolean adding, @Nullable Student s) {
+	public DialogAddEditStudent(Boolean adding, int row) {
 		super(MainFrame.getInstance(), "Dodavanje studenta", true);
 		//adding - govori da li se radi o dodavanju(true) ili izmeni(false)
+		
+		Student s = new Student();
 		
 		if(adding)
 			setIconImage(new ImageIcon("icons/add.png").getImage());
 		else {
 			setIconImage(new ImageIcon("icons/edit.png").getImage());
 			setTitle("Izmena studenta");
+			
+			s = StudentBaza.getInstance().getStudenti().get(row);
 		}
 		setLayout(new BorderLayout(40,40));
 		setSize(400, 455);
@@ -78,7 +83,7 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField prezime = new JTextField();
 		prezime.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(s.getPrezime());
+			prezime.setText(s.getPrezime());
 		pPrezime.add(lprezime);
 		pPrezime.add(prezime);
 		
@@ -89,7 +94,7 @@ public class DialogAddEditStudent extends JDialog {
 		JFormattedTextField datumr = new JFormattedTextField(getDateMask("##.##.####."));
 		datumr.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(sdf.format(s.getDatumr()));
+			datumr.setText(sdf.format(s.getDatumr()));
 		pDatumr.add(ldatumr);
 		pDatumr.add(datumr);
 		
@@ -100,7 +105,7 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField adresa = new JTextField();
 		adresa.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(s.getAdresa());
+			adresa.setText(s.getAdresa());
 		pAdresa.add(ladresa);
 		pAdresa.add(adresa);
 		
@@ -111,7 +116,7 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField tel = new JTextField();
 		tel.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(s.getTel());
+			tel.setText(s.getTel());
 		pTel.add(ltel);
 		pTel.add(tel);
 		
@@ -122,7 +127,7 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField email = new JTextField();
 		email.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(s.getEmail());
+			email.setText(s.getEmail());
 		pEmail.add(lemail);
 		pEmail.add(email);
 		
@@ -133,8 +138,8 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField index = new JTextField();
 		index.setPreferredSize(dimText);
 		if(!adding) {
-			ime.setText(s.getIndex());
-			ime.setEditable(false);
+			index.setText(s.getIndex());
+			index.setEditable(false);
 		}
 		pIndex.add(lindex);
 		pIndex.add(index);
@@ -146,7 +151,7 @@ public class DialogAddEditStudent extends JDialog {
 		JFormattedTextField datumu = new JFormattedTextField(getDateMask("##.##.####."));
 		datumu.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(sdf.format(s.getDatumu()));
+			datumu.setText(sdf.format(s.getDatumu()));
 		pDatumu.add(ldatumu);
 		pDatumu.add(datumu);
 		
@@ -196,7 +201,7 @@ public class DialogAddEditStudent extends JDialog {
 		JTextField prosek = new JTextField();
 		prosek.setPreferredSize(dimText);
 		if(!adding)
-			ime.setText(String.valueOf(s.getProsek()));
+			prosek.setText(String.valueOf(s.getProsek()));
 		pProsek.add(lprosek);
 		pProsek.add(prosek);
 		
@@ -215,7 +220,6 @@ public class DialogAddEditStudent extends JDialog {
 	
 		JPanel buttonPart = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton ok = new JButton("Potvrdi");
-	//	ok.setEnabled(false);
 		JButton close = new JButton("Odustani");
 		
 		buttonPart.add(ok);
@@ -224,24 +228,32 @@ public class DialogAddEditStudent extends JDialog {
 		add(textPart, BorderLayout.CENTER);
 		add(buttonPart, BorderLayout.SOUTH);
 		
-/*		KeyAdapter adapter = new KeyAdapter(){
-			public void KeyReleased(java.awt.event.KeyEvent e) {
-				super.keyReleased(e);
+/*		KeyListener fix = new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
 				if(ime.getText().trim().isEmpty() && prezime.getText().trim().isEmpty() &&
 				   adresa.getText().trim().isEmpty() && tel.getText().trim().isEmpty() &&
 				   index.getText().trim().isEmpty() && prosek.getText().trim().isEmpty()) 
 					ok.setEnabled(true);
 				else
 					ok.setEnabled(false);
+				
 			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {}
 		};
 		
-		ime.addKeyListener(adapter);
-		prezime.addKeyListener(adapter);
-		adresa.addKeyListener(adapter);
-		tel.addKeyListener(adapter);
-		index.addKeyListener(adapter);
-		prosek.addKeyListener(adapter);*/
+		ime.addKeyListener(fix);
+		prezime.addKeyListener(fix);
+		adresa.addKeyListener(fix);
+		tel.addKeyListener(fix);
+		index.addKeyListener(fix);
+		prosek.addKeyListener(fix);*/
 		
 		ok.addActionListener(new ActionListener() {
 			
@@ -289,7 +301,7 @@ public class DialogAddEditStudent extends JDialog {
 					if(adding)
 						StudentController.getInstance().addStudent(st);
 					else
-						StudentController.getInstance().editStudent();
+						StudentController.getInstance().editStudent(st);
 					dispose();
 				}
 				
