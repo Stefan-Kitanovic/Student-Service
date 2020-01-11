@@ -185,6 +185,10 @@ public class MainFrame extends JFrame {
 		return predmetTable.getSelectedRow();
 	}
 	
+	public int getSelectedStudentRow() {
+		return studentTable.getSelectedRow();
+	}
+	
 	public Dimension getFrameSize() {
 		return frameSize;
 	}

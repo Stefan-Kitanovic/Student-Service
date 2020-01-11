@@ -46,7 +46,7 @@ public class Toolbar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(true, null);
+					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(true, -1);
 					dialogStudent.setVisible(true);
 					break;
 				case 1:
@@ -73,7 +73,13 @@ public class Toolbar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					//Operacije sa studentima
+					int row = MainFrame.getInstance().getSelectedStudentRow();
+					if(row < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za izmenu!");
+						break;
+					}
+					DialogAddEditStudent dialog = new DialogAddEditStudent(false, row);
+					dialog.setVisible(true);
 					break;
 				case 1:
 					//Operacije sa profesorima
