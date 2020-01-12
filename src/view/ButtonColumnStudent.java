@@ -36,7 +36,7 @@ public class ButtonColumnStudent extends AbstractCellEditor implements TableCell
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fireEditingStopped();
-				
+				new StudentPrikaziFrame();
 			}
 		});
 		

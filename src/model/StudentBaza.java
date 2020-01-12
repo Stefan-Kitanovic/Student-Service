@@ -177,6 +177,33 @@ public class StudentBaza extends JTable implements Serializable{
 		s.setPredmeti(predmeti);
 	}
 	
+	public List<Predmet> getPredmetiList(int row) {
+		return studenti.get(row).getPredmeti();
+	}
+	
+	public String PredmetListgetValueAt(int row, int column, int index) {
+		Predmet predmet = studenti.get(row).getPredmeti().get(index);
+		
+		switch (column) {
+			case 0:
+				return predmet.getSifraPredmeta();
+			case 1:
+				return predmet.getNazivPredmeta();
+			case 2:
+				if (predmet.getSemestar() == Semestar.Zimski)
+					return Integer.toString((predmet.getGodinaStudija().ordinal()+1)*2 - 1);
+				else
+					return Integer.toString((predmet.getGodinaStudija().ordinal()+1)*2);
+			case 3:
+				return predmet.getGodinaStudija().toString();
+			case 4:
+				if (predmet.getPredmetniProfesor() == null)
+					return "Nema profesora";
+			default:
+				return null;
+		}
+	}
+	
 	public void saveStudentDataBase() {
 		ObjectOutputStream out = null;
 		try {
