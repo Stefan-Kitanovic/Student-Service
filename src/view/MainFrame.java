@@ -192,11 +192,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedPredmetRow() {
-		int[] selection = predmetTable.getSelectedRows();
-		   for (int i = 0; i < selection.length; i++) {
-		     selection[i] = predmetTable.convertRowIndexToModel(selection[i]);
-		   }
-		return selection[predmetTable.getSelectedRow()];
+		return predmetTable.convertRowIndexToModel(predmetTable.getSelectedRow());
 	}
 	
 	public int getSelectedStudentRow() {
