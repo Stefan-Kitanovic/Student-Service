@@ -113,6 +113,10 @@ public class ProfesorBaza implements Serializable {
 		predmeti.remove(predmet);
 	}
 	
+	public List<Predmet> getPredmeti(int row) {
+		return profesori.get(row).getPredmeti();
+	}
+	
 	public int getColumnCount() {
 		return columns.size() - 1;
 	}
@@ -188,6 +192,19 @@ public class ProfesorBaza implements Serializable {
 				return null;
 		}
 		
+	}
+	
+	public String prikaziGetValueAt(int row, int column, int index) {
+		Predmet predmet = profesori.get(index).getPredmeti().get(row);
+		
+		switch(column) {
+			case 0:
+				return predmet.getSifraPredmeta();
+			case 1:
+				return predmet.getNazivPredmeta();
+			default:
+				return null;	
+		}
 	}
 	
 	public String getColumnName(int index) {

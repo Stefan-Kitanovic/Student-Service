@@ -36,7 +36,7 @@ public class ButtonColumnProfesor extends AbstractCellEditor implements TableCel
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fireEditingStopped();
-				//Prikazi predmete na kojima je profesor
+				new ProfesorPrikaziFrame();
 			}
 		});
 		
