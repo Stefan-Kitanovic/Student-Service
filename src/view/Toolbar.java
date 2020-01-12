@@ -213,13 +213,12 @@ public class Toolbar extends JToolBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (MainFrame.getInstance().getSelectedTab() == 2) {
-					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
-						return;
-					
-					if (PredmetBaza.getInstance().getRow(MainFrame.getInstance().getSelectedPredmetRow()).getPredmetniProfesor() != null) {
+				if (MainFrame.getInstance().getSelectedTab() == 2) {				
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet da biste dodali profesora!");
+					} else if (PredmetBaza.getInstance().getRow(MainFrame.getInstance().getSelectedPredmetRow()).getPredmetniProfesor() != null) {
 						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Predmet vec ima profesora!");
-					} else {
+					} else {						
 						DialogAddProfesorToPredmet dialogProfesorToPredmet = new DialogAddProfesorToPredmet(MainFrame.getInstance().getSelectedPredmetRow());
 						dialogProfesorToPredmet.setVisible(true);						
 					}
@@ -244,7 +243,9 @@ public class Toolbar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
-					if (MainFrame.getInstance().getSelectedPredmetRow() >= 0)
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet da biste uklonili profesora!");
+					else
 						PredmetController.getInstance().removeProfesorFromPredmet(MainFrame.getInstance().getSelectedPredmetRow());
 				}			
 			}
