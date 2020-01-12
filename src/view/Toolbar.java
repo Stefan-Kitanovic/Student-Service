@@ -103,8 +103,10 @@ public class Toolbar extends JToolBar {
 					dialogProfesor.setVisible(true);
 					break;
 				case 2:
-					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
+					if (MainFrame.getInstance().getSelectedPredmetRow() < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet za izmenu!");
 						break;
+					}
 					
 					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(false, MainFrame.getInstance().getSelectedPredmetRow());
 					dialogPredmet.setVisible(true);
