@@ -41,14 +41,16 @@ private static PredmetController instance = null;
 	
 	public void editPredmet(int row, String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
 			Profesor predmetniProfesor) {
-		PredmetBaza.getInstance().editPredmet(row, sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor);
 		if(row < 0)
 			return;
 		
 		if (predmetniProfesor != null) {
+			Profesor currentProfesor = PredmetBaza.getInstance().getRow(MainFrame.getInstance().getSelectedPredmetRow()).getPredmetniProfesor();
+			ProfesorBaza.getInstance().removePredmetFromProfesor(PredmetBaza.getInstance().getRow(row), currentProfesor);
 			ProfesorBaza.getInstance().assignPredmetToProfesor(PredmetBaza.getInstance().getRow(row), predmetniProfesor);			
 		}
 		
+		PredmetBaza.getInstance().editPredmet(row, sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor);
 		MainFrame.getInstance().updateView();
 	}
 	

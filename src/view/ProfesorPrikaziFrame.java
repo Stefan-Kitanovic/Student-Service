@@ -31,6 +31,8 @@ public class ProfesorPrikaziFrame extends JFrame {
 
 		AbstractTableModel abstractTable = new AbstractTableModel() {
 			
+			private static final long serialVersionUID = -5246492386659421409L;
+
 			@Override
 			public Object getValueAt(int row, int column) {
 				return ProfesorBaza.getInstance().prikaziGetValueAt(row, column, MainFrame.getInstance().getSelectedProfesorRow());
