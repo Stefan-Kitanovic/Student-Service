@@ -24,6 +24,7 @@ import controller.PredmetController;
 import controller.ProfesorController;
 import controller.StudentController;
 import model.PredmetBaza;
+import model.ProfesorBaza;
 import model.StudentBaza;
 
 public class Toolbar extends JToolBar {
@@ -139,7 +140,17 @@ public class Toolbar extends JToolBar {
 					break;
 				case 1:
 					int profesorRow = MainFrame.getInstance().getSelectedProfesorRow();
-					ProfesorController.getInstance().deleteProfesor(profesorRow);
+					if (profesorRow < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite profesora za brisanje!");
+						break;
+					}
+					
+					String profesorMessage = String.format("Profesor %s ce biti uklonjen iz baze. Nastaviti?", ProfesorBaza.getInstance().getValueAt(profesorRow, 0) + " " + ProfesorBaza.getInstance().getValueAt(profesorRow, 1));
+					int profesorOpt = JOptionPane.showConfirmDialog(MainFrame.getInstance(), profesorMessage, "Brisanje", JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE);
+					
+					if(profesorOpt == 0)
+						ProfesorController.getInstance().deleteProfesor(profesorRow);
+					
 					break;
 				case 2:
 					int predmetRow = MainFrame.getInstance().getSelectedPredmetRow();
