@@ -55,7 +55,7 @@ private static ProfesorController instance = null;
 			for (String column : ProfesorBaza.getInstance().getColumns()) {
 				if (s[0].equalsIgnoreCase(column)) {
 					if (s.length == 2)
-						filters.add(RowFilter.regexFilter(s[1], i));
+						filters.add(RowFilter.regexFilter("^" + s[1] + "$", i));
 				}
 				i++;
 			}

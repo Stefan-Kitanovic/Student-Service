@@ -80,7 +80,7 @@ private static PredmetController instance = null;
 			for (String column : PredmetBaza.getInstance().getColumns()) {
 				if (s[0].equalsIgnoreCase(column)) {
 					if (s.length == 2)
-						filters.add(RowFilter.regexFilter(s[1], i));
+						filters.add(RowFilter.regexFilter("^" + s[1] + "$", i));
 				}
 				i++;
 			}
