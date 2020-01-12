@@ -195,7 +195,10 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedPredmetRow() {
-		return predmetTable.convertRowIndexToModel(predmetTable.getSelectedRow());
+		if (predmetTable.getSelectedRow() >= 0)
+			return predmetTable.convertRowIndexToModel(predmetTable.getSelectedRow());
+		else
+			return predmetTable.getSelectedRow();
 	}
 	
 	public int getSelectedStudentRow() {
@@ -203,7 +206,10 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedProfesorRow() {
-		return profesorTable.convertRowIndexToModel(profesorTable.getSelectedRow());
+		if (profesorTable.getSelectedRow() >= 0)
+			return profesorTable.convertRowIndexToModel(profesorTable.getSelectedRow());
+		else
+			return profesorTable.getSelectedRow();
 	}
 	
 	public Dimension getFrameSize() {

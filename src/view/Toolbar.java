@@ -207,10 +207,8 @@ public class Toolbar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
-					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)
-						return;
-					
-					PredmetBaza.getInstance().removeProfesorFromPredmet(MainFrame.getInstance().getSelectedPredmetRow());
+					if (MainFrame.getInstance().getSelectedPredmetRow() >= 0)
+						PredmetController.getInstance().removeProfesorFromPredmet(MainFrame.getInstance().getSelectedPredmetRow());
 				}			
 			}
 		};
