@@ -43,11 +43,11 @@ public class PredmetBaza implements Serializable {
 		if (dataFile.exists())
 			predmeti = loadPredmetBazaData(dataFile);
 		else {
-			predmeti.add(new Predmet("test1", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("test2", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("test3", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("test4", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("test5", "test", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("OP301", "Osnove programiranja", Semestar.Zimski, Godina.I, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("DM881", "Diskretna matematika", Semestar.Zimski, Godina.II, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("PP007", "Paralelno programiranje", Semestar.Zimski, Godina.III, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("RVP33", "Računarstvo visokih performansi", Semestar.Zimski, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("JSD91", "Jezici specifični za domen", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
 		}
 		
 	}
@@ -95,7 +95,7 @@ public class PredmetBaza implements Serializable {
 	}
 	
 	public List<String> getColumns() {
-		return columns;
+		return columns.subList(0, getColumnCount());
 	}
 	
 	public List<Predmet> getPredmeti() {
