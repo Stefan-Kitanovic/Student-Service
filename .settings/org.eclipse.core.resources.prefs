@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/model/PredmetBaza.java=UTF-8
+encoding//src/model/ProfesorBaza.java=UTF-8
 encoding//src/model/Semestar.java=UTF-8
 encoding//src/view/DialogAddEditPredmet.java=UTF-8
