@@ -58,6 +58,7 @@ private static PredmetController instance = null;
 	
 	public void addProfesorToPredmet(String brojLicneKarte, int row) {
 		Profesor profesor = ProfesorBaza.getInstance().getProfesorById(brojLicneKarte);
+		ProfesorBaza.getInstance().assignPredmetToProfesor(PredmetBaza.getInstance().getRow(row), profesor);
 		PredmetBaza.getInstance().addProfesorToPredmet(profesor, row);
 		MainFrame.getInstance().updateView();	
 	}
