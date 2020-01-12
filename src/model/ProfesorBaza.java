@@ -59,6 +59,7 @@ public class ProfesorBaza implements Serializable {
 				profesori.add(new Profesor("Đorđe", "Spasojević", sdf.parse("24.08.1978."), "Šekspirova 44, Novi Sad", "021/514-893", "djordje.spasojevic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, MI 118", "009999331", "dr", "Vanredni profesor", new ArrayList<Predmet>()));
 				profesori.add(new Profesor("Elena", "Milenković", sdf.parse("08.11.1985."), "Tolstojeva 52, Novi Sad", "021/834-901", "elena.milenkovic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, Nastavni blok 217", "003330976", "dr", "Docent", new ArrayList<Predmet>()));
 				profesori.add(new Profesor("Teodor", "Mladenović", sdf.parse("14.12.1983."), "Jovana Subotića 33, Novi Sad", "021/441-007", "teodor.mladenovic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, NTP M35", "007441998", "dr", "Docent", new ArrayList<Predmet>()));
+							
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -100,6 +101,16 @@ public class ProfesorBaza implements Serializable {
 				break;
 			}
 		}
+	}
+	
+	public void assignPredmetToProfesor(Predmet predmet, Profesor profesor) {
+		List<Predmet> predmeti = profesor.getPredmeti();
+		predmeti.add(predmet);
+	}
+	
+	public void removePredmetFromProfesor(Predmet predmet, Profesor profesor) {
+		List<Predmet> predmeti = profesor.getPredmeti();
+		predmeti.remove(predmet);
 	}
 	
 	public int getColumnCount() {

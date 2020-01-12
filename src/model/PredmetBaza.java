@@ -48,6 +48,11 @@ public class PredmetBaza implements Serializable {
 			predmeti.add(new Predmet("PP007", "Paralelno programiranje", Semestar.Zimski, Godina.III, ProfesorBaza.getInstance().getProfesorById("005671007"), new ArrayList<Student>()));
 			predmeti.add(new Predmet("RVP33", "Računarstvo visokih performansi", Semestar.Zimski, Godina.IV, ProfesorBaza.getInstance().getProfesorById("009999331"), new ArrayList<Student>()));
 			predmeti.add(new Predmet("JSD91", "Jezici specifični za domen", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
+			
+			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(0), ProfesorBaza.getInstance().getRow(0));
+			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(1), ProfesorBaza.getInstance().getRow(0));
+			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(2), ProfesorBaza.getInstance().getRow(0));
+			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(3), ProfesorBaza.getInstance().getRow(0));
 		}
 		
 	}

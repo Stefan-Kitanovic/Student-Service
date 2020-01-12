@@ -11,8 +11,8 @@ public class MainApp {
 
 	public static void main(String[] args) {
 		StudentBaza.getInstance();
-		ProfesorBaza.getInstance();
 		PredmetBaza.getInstance();
+		ProfesorBaza.getInstance();
 		
 		ProfesorController.getInstance();
 		PredmetController.getInstance();

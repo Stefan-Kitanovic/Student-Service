@@ -64,8 +64,10 @@ private static PredmetController instance = null;
 		MainFrame.getInstance().updateView();	
 	}
 	
-	public void removeProfesorFromPredmet(int row) {
-		PredmetBaza.getInstance().removeProfesorFromPredmet(row);
+	public void removeProfesorFromPredmet(int predmetRow) {
+		Predmet predmet = PredmetBaza.getInstance().getRow(predmetRow);
+		ProfesorBaza.getInstance().removePredmetFromProfesor(predmet, predmet.getPredmetniProfesor());
+		PredmetBaza.getInstance().removeProfesorFromPredmet(predmetRow);
 		MainFrame.getInstance().updateView();	
 	}
 	
