@@ -182,7 +182,7 @@ public class StudentBaza extends JTable implements Serializable{
 	}
 	
 	public String PredmetListgetValueAt(int row, int column, int index) {
-		Predmet predmet = studenti.get(row).getPredmeti().get(index);
+		Predmet predmet = getPredmetiList(index).get(row);
 		
 		switch (column) {
 			case 0:

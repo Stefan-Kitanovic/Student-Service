@@ -36,7 +36,7 @@ public class ButtonColumnPredmet extends AbstractCellEditor implements TableCell
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				fireEditingStopped();
-				//Prikazi studente na predmetu
+				new PredmetPrikaziFrame();
 			}
 		});
 		

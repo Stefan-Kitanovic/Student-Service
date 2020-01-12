@@ -157,6 +157,25 @@ public class PredmetBaza implements Serializable {
 		return columns.get(index);
 	}
 	
+	public List<Student> getStudentList(int row){
+		return predmeti.get(row).getSpisakStudenata();
+	}
+	
+	public Object StudentListgetValueAt(int rowIndex, int columnIndex, int index) {
+		Student student = getStudentList(index).get(rowIndex);
+		
+		switch(columnIndex) {
+		case 0:
+			return student.getIndex();
+		case 1:
+			return student.getIme();
+		case 2:
+			return student.getPrezime();
+		
+		}
+		return null;
+	}
+	
 	
 	public void savePredmetaBazaData() {
 
