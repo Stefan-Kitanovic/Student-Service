@@ -58,7 +58,8 @@ public class Toolbar extends JToolBar {
 					dialogStudent.setVisible(true);
 					break;
 				case 1:
-					//Operacije sa profesorima
+					DialogAddEditProfesor dialogProfesor = new DialogAddEditProfesor(true, -1);
+					dialogProfesor.setVisible(true);
 					break;
 				case 2:
 					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, -1);
@@ -88,11 +89,17 @@ public class Toolbar extends JToolBar {
 						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za izmenu!");
 						break;
 					}
-					DialogAddEditStudent dialog = new DialogAddEditStudent(false, row);
-					dialog.setVisible(true);
+					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(false, row);
+					dialogStudent.setVisible(true);
 					break;
 				case 1:
-					//Operacije sa profesorima
+					int rowP = MainFrame.getInstance().getSelectedProfesorRow();
+					if(rowP < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite profesora za izmenu!");
+						break;
+					}
+					DialogAddEditProfesor dialogProfesor = new DialogAddEditProfesor(false, rowP);
+					dialogProfesor.setVisible(true);
 					break;
 				case 2:
 					if (MainFrame.getInstance().getSelectedPredmetRow() < 0)

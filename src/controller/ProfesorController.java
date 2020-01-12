@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.RowFilter;
 
-import model.PredmetBaza;
 import model.Profesor;
 import model.ProfesorBaza;
 import view.MainFrame;
@@ -23,12 +22,16 @@ private static ProfesorController instance = null;
 	
 	private ProfesorController() {}
 	
-	public void addProfesor() {
-		
+	public void addProfesor(Profesor p) {
+		ProfesorBaza.getInstance().addProfesor(p.getIme(), p.getPrezime(), p.getDatumRodjenja(), p.getAdresaStanovanja(), p.getKontaktTelefon(), p.getEmailAdresa(), 
+				p.getAdresaKancelarije(), p.getBrojLicneKarte(), p.getTitula(), p.getZvanje(), p.getPredmeti());
+		MainFrame.getInstance().updateView();
 	}
 	
-	public void editProfesor() {
-		
+	public void editProfesor(Profesor p) {
+		ProfesorBaza.getInstance().editProfesor(p.getIme(), p.getPrezime(), p.getDatumRodjenja(), p.getAdresaStanovanja(), p.getKontaktTelefon(), p.getEmailAdresa(), 
+												p.getAdresaKancelarije(), p.getBrojLicneKarte(), p.getTitula(), p.getZvanje(), p.getPredmeti());
+		MainFrame.getInstance().updateView();
 	}
 	
 	public void deleteProfesor(int row) {

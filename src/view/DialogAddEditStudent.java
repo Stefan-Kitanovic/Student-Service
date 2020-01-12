@@ -261,7 +261,12 @@ public class DialogAddEditStudent extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double prosecnaO = Double.parseDouble(prosek.getText());
+				double prosecnaO = 0;
+				try {
+					prosecnaO = Double.parseDouble(prosek.getText());
+				} catch (NumberFormatException e2) {
+					e2.printStackTrace();
+				}
 				
 				Date datumrDate = new Date();
 				Date datumuDate = new Date();

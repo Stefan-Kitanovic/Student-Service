@@ -81,11 +81,12 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					DialogAddEditStudent dialog = new DialogAddEditStudent(true, -1);
-					dialog.setVisible(true);
+					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(true, -1);
+					dialogStudent.setVisible(true);
 					break;
 				case 1:
-					//Dodavanje profesora
+					DialogAddEditProfesor dialogProfesor = new DialogAddEditProfesor(true, -1);
+					dialogProfesor.setVisible(true);
 					break;
 				case 2:
 					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, -1);
@@ -102,15 +103,21 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 				case 0:
-					int row = MainFrame.getInstance().getSelectedStudentRow();
-					if(row < 0) {
+					int rowS = MainFrame.getInstance().getSelectedStudentRow();
+					if(rowS < 0) {
 						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite studenta za izmenu!");
 						break;
 					}
-					DialogAddEditStudent dialog = new DialogAddEditStudent(false, row);
-					dialog.setVisible(true);
+					DialogAddEditStudent dialogStudent = new DialogAddEditStudent(false, rowS);
+					dialogStudent.setVisible(true);
 				case 1:
-					//Izmena profesora
+					int rowP = MainFrame.getInstance().getSelectedProfesorRow();
+					if(rowP < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite profesora za izmenu!");
+						break;
+					}
+					DialogAddEditProfesor dialogProfesor = new DialogAddEditProfesor(false, rowP);
+					dialogProfesor.setVisible(true);
 					break;
 				case 2:
 					if (MainFrame.getInstance().getSelectedPredmetRow() < 0) {
