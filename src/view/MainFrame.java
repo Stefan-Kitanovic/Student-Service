@@ -42,6 +42,7 @@ public class MainFrame extends JFrame {
 	private JTable predmetTable;
 	private JTable profesorTable;
 	private TableRowSorter<TableModel> predmetSorter;
+	private TableRowSorter<TableModel> profesorSorter;
 	
 	private static MainFrame instance = null;
 	
@@ -109,6 +110,8 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("student", studentPanel);	
 		
 		profesorTable = new ProfesorTable();
+		profesorSorter = new TableRowSorter<TableModel>(profesorTable.getModel());
+		profesorTable.setRowSorter(profesorSorter);
 		JScrollPane profesoriPanel = new JScrollPane(profesorTable);
 		profesoriPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
 		profesoriPanel.setBackground(Color.LIGHT_GRAY);
@@ -200,7 +203,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedProfesorRow() {
-		return profesorTable.getSelectedRow();
+		return profesorTable.convertRowIndexToModel(profesorTable.getSelectedRow());
 	}
 	
 	public Dimension getFrameSize() {
@@ -209,5 +212,9 @@ public class MainFrame extends JFrame {
 	
 	public void setPredmetSorter(RowFilter<Object, Object> filter) {
 		predmetSorter.setRowFilter(filter);
+	}
+	
+	public void setProfesorSorter(RowFilter<Object, Object> filter) {
+		profesorSorter.setRowFilter(filter);
 	}
 }

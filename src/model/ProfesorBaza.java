@@ -104,6 +104,10 @@ public class ProfesorBaza implements Serializable {
 		return columns.size() - 1;
 	}
 	
+	public List<String> getColumns() {
+		return columns;
+	}
+	
 	public List<Profesor> getProfesori() {
 		return profesori;
 	}

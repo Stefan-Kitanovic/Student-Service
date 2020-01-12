@@ -238,7 +238,7 @@ public class Toolbar extends JToolBar {
 					case 0:
 						//Student
 					case 1:
-						//Profesor
+						ProfesorController.getInstance().filterProfesor(searchBar.getText());
 					case 2:
 						PredmetController.getInstance().filterPredmet(searchBar.getText());		
 				}
