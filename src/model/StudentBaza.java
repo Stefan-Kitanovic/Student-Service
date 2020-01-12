@@ -123,14 +123,17 @@ public class StudentBaza extends JTable implements Serializable{
 	public List<Student> getStudenti(){
 		return studenti;
 	}
-
-	public boolean addStudent(Student s) {
+	
+	public boolean studentExists(String index) {
 		for(Student student : studenti) {
-			if(s.getIndex().equalsIgnoreCase(student.getIndex()))
-				return false;
+			if(index.trim().equalsIgnoreCase(student.getIndex()))
+				return true;
 		}
+		return false;
+	}
+	
+	public void addStudent(Student s) {
 		studenti.add(s);
-		return true;
 	}
 	
 	public void editStudent(Student s) {

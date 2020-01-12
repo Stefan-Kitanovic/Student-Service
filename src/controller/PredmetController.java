@@ -1,12 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.RowFilter;
 
-import com.sun.javafx.collections.MappingChange.Map;
 
 import model.Godina;
 import model.Predmet;

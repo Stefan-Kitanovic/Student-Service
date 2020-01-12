@@ -1,7 +1,5 @@
 package controller;
 
-import javax.swing.JOptionPane;
-
 import model.Student;
 import model.StudentBaza;
 import view.MainFrame;
@@ -19,10 +17,7 @@ public class StudentController {
 	public StudentController() {}
 	
 	public void addStudent(Student s) {
-		if(!StudentBaza.getInstance().addStudent(s)) {
-			String message = String.format("Student %s vec postoji!", s.getIndex());
-			JOptionPane.showMessageDialog(MainFrame.getInstance(), message);
-		}
+		StudentBaza.getInstance().addStudent(s);
 		MainFrame.getInstance().updateView();
 	}
 	

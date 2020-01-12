@@ -55,7 +55,7 @@ public class DialogAddEditStudent extends JDialog {
 			s = StudentBaza.getInstance().getStudenti().get(row);
 		}
 		setLayout(new BorderLayout(40,40));
-		setSize(400, 455);
+		setSize(400, 470);
 		setResizable(false);
 		setLocationRelativeTo(MainFrame.getInstance());
 		
@@ -123,7 +123,7 @@ public class DialogAddEditStudent extends JDialog {
 		//email
 		JPanel pEmail = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
 		JLabel lemail = new JLabel("E-mail adresa*");
-		ltel.setPreferredSize(dimLab);
+		lemail.setPreferredSize(dimLab);
 		JTextField email = new JTextField();
 		email.setPreferredSize(dimText);
 		if(!adding)
@@ -141,6 +141,8 @@ public class DialogAddEditStudent extends JDialog {
 			index.setText(s.getIndex());
 			index.setEditable(false);
 		}
+		JLabel lindexExists = new JLabel("Indeks vec postoji!");
+		lindexExists.setVisible(false);
 		pIndex.add(lindex);
 		pIndex.add(index);
 		
@@ -196,7 +198,7 @@ public class DialogAddEditStudent extends JDialog {
 		
 		//Prosek
 		JPanel pProsek = new JPanel(new FlowLayout(FlowLayout.LEFT)); 
-		JLabel lprosek = new JLabel("Prosek*");
+		JLabel lprosek = new JLabel("Prosek");
 		lprosek.setPreferredSize(dimLab);
 		JTextField prosek = new JTextField();
 		prosek.setPreferredSize(dimText);
@@ -212,6 +214,7 @@ public class DialogAddEditStudent extends JDialog {
 		textPart.add(pTel);
 		textPart.add(pEmail);
 		textPart.add(pIndex);
+		textPart.add(lindexExists);
 		textPart.add(pDatumu);
 		textPart.add(pGodina);
 		textPart.add(bu, new FlowLayout(FlowLayout.LEFT));
@@ -237,12 +240,21 @@ public class DialogAddEditStudent extends JDialog {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(ime.getText().trim().isEmpty() || prezime.getText().trim().isEmpty() ||
-				   adresa.getText().trim().isEmpty() || tel.getText().trim().isEmpty() ||
-				   index.getText().trim().isEmpty() || prosek.getText().trim().isEmpty()) 
+				if(adding && StudentBaza.getInstance().studentExists(index.getText())) {
 					ok.setEnabled(false);
-				else
+					lindexExists.setVisible(true);
+				}else if(ime.getText().trim().isEmpty() || prezime.getText().trim().isEmpty() ||
+				   adresa.getText().trim().isEmpty() || tel.getText().trim().isEmpty() ||
+				   index.getText().trim().isEmpty()) { 
+					ok.setEnabled(false);
+					lindexExists.setVisible(false);
+				}else if(!adding && StudentBaza.getInstance().studentExists(index.getText())) {
+					ok.setEnabled(false);
+					lindexExists.setVisible(true);
+				}else {
 					ok.setEnabled(true);
+					lindexExists.setVisible(false);
+				}
 				
 			}
 			
@@ -255,17 +267,18 @@ public class DialogAddEditStudent extends JDialog {
 		adresa.addKeyListener(fix);
 		tel.addKeyListener(fix);
 		index.addKeyListener(fix);
-		prosek.addKeyListener(fix);
 		
 		ok.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				double prosecnaO = 0;
-				try {
-					prosecnaO = Double.parseDouble(prosek.getText());
-				} catch (NumberFormatException e2) {
-					e2.printStackTrace();
+				if(!prosek.getText().trim().isEmpty()) {
+					try {
+						prosecnaO = Double.parseDouble(prosek.getText());
+					} catch (NumberFormatException e2) {
+						e2.printStackTrace();
+					}
 				}
 				
 				Date datumrDate = new Date();
@@ -280,7 +293,7 @@ public class DialogAddEditStudent extends JDialog {
 				int dateRes = datumrDate.compareTo(datumuDate);
 				
 				if((prosecnaO < 6 && prosecnaO != 0) || prosecnaO > 10) {
-					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Prosecna ocena mora biti izmedju 6.0 i 10.0! (0 za studenta bez proseka)");
+					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Prosecna ocena mora biti izmedju 6.0 i 10.0! (Ako prosek ne postoji ostaviti prazno)");
 				}else if(dateRes >= 0) {
 					JOptionPane.showMessageDialog(MainFrame.getInstance(), "Datum rodjenja mora biti pre datuma upisa!");
 				}else {
