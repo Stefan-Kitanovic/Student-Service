@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -184,7 +185,7 @@ public class DialogAddEditStudent extends JDialog {
 		pGodina.add(godina);
 		
 		//Status
-		JRadioButton bu = new JRadioButton("Budžet", true);
+		JRadioButton bu = new JRadioButton("Budï¿½et", true);
 		JRadioButton sf = new JRadioButton("Samofinansiranje");
 		ButtonGroup status = new ButtonGroup();
 		status.add(bu);
@@ -206,6 +207,9 @@ public class DialogAddEditStudent extends JDialog {
 			prosek.setText(String.valueOf(s.getProsek()));
 		pProsek.add(lprosek);
 		pProsek.add(prosek);
+		
+		//Lista predmeta
+		List<Predmet> predmeti = s.getPredmeti();
 		
 		textPart.add(pIme);
 		textPart.add(pPrezime);
@@ -268,6 +272,7 @@ public class DialogAddEditStudent extends JDialog {
 		tel.addKeyListener(fix);
 		index.addKeyListener(fix);
 		
+		
 		ok.addActionListener(new ActionListener() {
 			
 			@Override
@@ -289,7 +294,6 @@ public class DialogAddEditStudent extends JDialog {
 				} catch (NumberFormatException | ParseException e1) {
 					e1.printStackTrace();
 				}
-				
 				int dateRes = datumrDate.compareTo(datumuDate);
 				
 				if((prosecnaO < 6 && prosecnaO != 0) || prosecnaO > 10) {
@@ -316,12 +320,14 @@ public class DialogAddEditStudent extends JDialog {
 					st.setGodina((Godina) godina.getSelectedItem());
 					st.setStatus(state);
 					st.setProsek(prosecnaO);
-					st.setPredmeti(new ArrayList<Predmet>());
 					
-					if(adding)
+					if(adding) {
+						st.setPredmeti(new ArrayList<Predmet>());
 						StudentController.getInstance().addStudent(st);
-					else
+					}else {
+						st.setPredmeti(predmeti);
 						StudentController.getInstance().editStudent(st);
+					}
 					dispose();
 				}
 				

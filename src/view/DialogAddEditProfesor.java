@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -172,6 +173,9 @@ public class DialogAddEditProfesor extends JDialog{
 			zvanje.setText(p.getZvanje());
 		pZvanje.add(lzvanje);
 		pZvanje.add(zvanje);
+		
+		//Lista predmeta
+		List<Predmet> predmeti = p.getPredmeti();
 				
 		textPart.add(pIme);
 		textPart.add(pPrezime);
@@ -238,6 +242,7 @@ public class DialogAddEditProfesor extends JDialog{
 		titula.addKeyListener(fix);
 		zvanje.addKeyListener(fix);
 		
+		
 		ok.addActionListener(new ActionListener() {
 			
 			@Override
@@ -260,13 +265,14 @@ public class DialogAddEditProfesor extends JDialog{
 				pr.setBrojLicneKarte(brojLicneKarte.getText());
 				pr.setTitula(titula.getText());
 				pr.setZvanje(zvanje.getText());
-				pr.setPredmeti(new ArrayList<Predmet>());
 				
-				if(adding)
+				if(adding) {
+					pr.setPredmeti(new ArrayList<Predmet>());
 					ProfesorController.getInstance().addProfesor(pr);
-				else
+				}else {
+					pr.setPredmeti(predmeti);
 					ProfesorController.getInstance().editProfesor(pr);
-				
+				}
 				dispose();
 			}
 		});
