@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -227,6 +229,21 @@ public class Toolbar extends JToolBar {
 		
 		JTextField searchBar = new JTextField();
 		searchBar.setPreferredSize(new Dimension(5*width, height));
+		
+		btnSearch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switch(MainFrame.getInstance().getSelectedTab()) {
+					case 0:
+						//Student
+					case 1:
+						//Profesor
+					case 2:
+						PredmetController.getInstance().filterPredmet(searchBar.getText());		
+				}
+			}
+		});
 		
 		setTooltips();
 		

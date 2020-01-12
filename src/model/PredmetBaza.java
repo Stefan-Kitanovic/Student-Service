@@ -94,6 +94,10 @@ public class PredmetBaza implements Serializable {
 		return columns.size() - 1;
 	}
 	
+	public List<String> getColumns() {
+		return columns;
+	}
+	
 	public List<Predmet> getPredmeti() {
 		return predmeti;
 	}

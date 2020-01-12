@@ -15,11 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import controller.PredmetController;
 import controller.ProfesorController;
@@ -38,6 +41,7 @@ public class MainFrame extends JFrame {
 	private JTable studentTable;
 	private JTable predmetTable;
 	private JTable profesorTable;
+	private TableRowSorter<TableModel> predmetSorter;
 	
 	private static MainFrame instance = null;
 	
@@ -111,10 +115,12 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("profesor", profesoriPanel);
 		
 		predmetTable = new PredmetTable();
+		predmetSorter = new TableRowSorter<TableModel>(predmetTable.getModel());
+		predmetTable.setRowSorter(predmetSorter);
 		JScrollPane predmetiPanel = new JScrollPane(predmetTable);
 		predmetiPanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(50, 50, 50, 50), new EtchedBorder()));
 		predmetiPanel.setBackground(Color.LIGHT_GRAY);
-		tabbedPane.addTab("predmet", predmetiPanel);		
+		tabbedPane.addTab("predmet", predmetiPanel);	
 		
 
 		JLabel lab = new JLabel("student");
@@ -190,7 +196,11 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedStudentRow() {
-		return studentTable.getSelectedRow();
+		int[] selection = predmetTable.getSelectedRows();
+		   for (int i = 0; i < selection.length; i++) {
+		     selection[i] = predmetTable.convertRowIndexToModel(selection[i]);
+		   }
+		return selection[predmetTable.getSelectedRow()];
 	}
 	
 	public int getSelectedProfesorRow() {
@@ -199,5 +209,9 @@ public class MainFrame extends JFrame {
 	
 	public Dimension getFrameSize() {
 		return frameSize;
+	}
+	
+	public void setPredmetSorter(RowFilter<Object, Object> filter) {
+		predmetSorter.setRowFilter(filter);
 	}
 }

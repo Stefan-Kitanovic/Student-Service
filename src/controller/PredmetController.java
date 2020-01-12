@@ -1,6 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.swing.RowFilter;
+
+import com.sun.javafx.collections.MappingChange.Map;
 
 import model.Godina;
 import model.Predmet;
@@ -61,5 +67,25 @@ private static PredmetController instance = null;
 	public void removeProfesorFromPredmet(int row) {
 		PredmetBaza.getInstance().removeProfesorFromPredmet(row);
 		MainFrame.getInstance().updateView();	
+	}
+	
+	public void filterPredmet(String searchResult) {
+		String[] criteria = searchResult.split(";");	
+		List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+		
+		for (String c : criteria) {
+			String[] s = c.split(":", 2);
+			
+			int i = 0;
+			for (String column : PredmetBaza.getInstance().getColumns()) {
+				if (s[0].equalsIgnoreCase(column)) {
+					filters.add(RowFilter.regexFilter(s[1], i));
+				}
+				i++;
+			}
+		}
+		
+		RowFilter<Object, Object> predmetFilter = RowFilter.andFilter(filters);
+		MainFrame.getInstance().setPredmetSorter(predmetFilter);
 	}
 }
