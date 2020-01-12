@@ -53,11 +53,13 @@ public class ProfesorBaza implements Serializable {
 			profesori = loadProfesorBazaData(dataFile);
 		} else {
 			try {
-				profesori.add(new Profesor("Aleksa", "Petkovic", sdf.parse("15.01.1965."), "Temerinska 15, Novi Sad", "021/334-990", "aleksa.petkovic@mailinator.com", "Dositeja Obradovica 6, Novi Sad, MI 105", "007198721", "Prof. dr", "Dr", new ArrayList<Predmet>()));
+				profesori.add(new Profesor("Aleksa", "Petkovic", sdf.parse("15.01.1965."), "Temerinska 15, Novi Sad", "021/334-990", "aleksa.petkovic@mailinator.com", "Dositeja Obradovica 6, Novi Sad, MI 105", "007198721", "Prof. dr", "Redovni profesor", new ArrayList<Predmet>()));
 				profesori.add(new Profesor("Jana", "Lazarevic", sdf.parse("25.02.1963."), "Jovana Cvijica 26, Novi Sad", "021/435-891", "jana.lazarevic@mailinator.com", "Dositeja Obradovica 6, Novi Sad, Nastavni blok 206", "008431903", "Prof. dr", "Redovni profesor", new ArrayList<Predmet>()));
-				profesori.add(new Profesor("Nadja", "Aleksic", sdf.parse("23.03.1973."), "Gunduliceva 75, Novi Sad", "021/730-172", "nadja.aleksic@mailinator.com", "Dositeja Obradovica 6, Novi Sad, NTP 307", "005671007", "Dr", "Vanredni profesor", new ArrayList<Predmet>()));
+				profesori.add(new Profesor("Nadja", "Aleksic", sdf.parse("23.03.1973."), "Gunduliceva 75, Novi Sad", "021/730-172", "nadja.aleksic@mailinator.com", "Dositeja Obradovica 6, Novi Sad, NTP 307", "005671007", "dr", "Vanredni profesor", new ArrayList<Predmet>()));
+				profesori.add(new Profesor("Đorđe", "Spasojević", sdf.parse("24.08.1978."), "Šekspirova 44, Novi Sad", "021/514-893", "djordje.spasojevic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, MI 118", "009999331", "dr", "Vanredni profesor", new ArrayList<Predmet>()));
+				profesori.add(new Profesor("Elena", "Milenković", sdf.parse("08.11.1985."), "Tolstojeva 52, Novi Sad", "021/834-901", "elena.milenkovic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, Nastavni blok 217", "003330976", "dr", "Docent", new ArrayList<Predmet>()));
+				profesori.add(new Profesor("Teodor", "Mladenović", sdf.parse("14.12.1983."), "Jovana Subotića 33, Novi Sad", "021/441-007", "teodor.mladenovic@mailinator.com", "Dositeja Obradovića 6, Novi Sad, NTP M35", "007441998", "dr", "Docent", new ArrayList<Predmet>()));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

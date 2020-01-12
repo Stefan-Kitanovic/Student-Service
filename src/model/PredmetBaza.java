@@ -43,10 +43,10 @@ public class PredmetBaza implements Serializable {
 		if (dataFile.exists())
 			predmeti = loadPredmetBazaData(dataFile);
 		else {
-			predmeti.add(new Predmet("OP301", "Osnove programiranja", Semestar.Zimski, Godina.I, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("DM881", "Diskretna matematika", Semestar.Zimski, Godina.II, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("PP007", "Paralelno programiranje", Semestar.Zimski, Godina.III, null, new ArrayList<Student>()));
-			predmeti.add(new Predmet("RVP33", "Računarstvo visokih performansi", Semestar.Zimski, Godina.IV, null, new ArrayList<Student>()));
+			predmeti.add(new Predmet("OP301", "Osnove programiranja", Semestar.Zimski, Godina.I, ProfesorBaza.getInstance().getProfesorById("007198721"), new ArrayList<Student>()));
+			predmeti.add(new Predmet("DM881", "Diskretna matematika", Semestar.Zimski, Godina.II, ProfesorBaza.getInstance().getProfesorById("008431903"), new ArrayList<Student>()));
+			predmeti.add(new Predmet("PP007", "Paralelno programiranje", Semestar.Zimski, Godina.III, ProfesorBaza.getInstance().getProfesorById("005671007"), new ArrayList<Student>()));
+			predmeti.add(new Predmet("RVP33", "Računarstvo visokih performansi", Semestar.Zimski, Godina.IV, ProfesorBaza.getInstance().getProfesorById("009999331"), new ArrayList<Student>()));
 			predmeti.add(new Predmet("JSD91", "Jezici specifični za domen", Semestar.Letnji, Godina.IV, null, new ArrayList<Student>()));
 		}
 		
