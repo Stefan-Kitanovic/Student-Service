@@ -179,7 +179,7 @@ public class MainFrame extends JFrame {
 
 		setResizable(false);
 		setSize(frameSize);
-		setTitle("Studentska Sluzba");
+		setTitle("Studentska Služba");
 		setIconImage(new ImageIcon("icons/appLogo.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
