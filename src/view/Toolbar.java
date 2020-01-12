@@ -143,7 +143,17 @@ public class Toolbar extends JToolBar {
 					break;
 				case 2:
 					int predmetRow = MainFrame.getInstance().getSelectedPredmetRow();
-					PredmetController.getInstance().deletePredmet(predmetRow);
+					if (predmetRow < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet za brisanje!");
+						break;
+					}
+					
+					String predmetMessage = String.format("Predmet %s ce biti uklonjen iz baze. Nastaviti?", PredmetBaza.getInstance().getValueAt(predmetRow, 1));
+					int predmetOpt = JOptionPane.showConfirmDialog(MainFrame.getInstance(), predmetMessage, "Brisanje", JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE);
+					
+					if(predmetOpt == 0)
+						PredmetController.getInstance().deletePredmet(predmetRow);
+					
 					break;
 			}
 				
