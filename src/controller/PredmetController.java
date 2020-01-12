@@ -13,6 +13,7 @@ import model.Profesor;
 import model.ProfesorBaza;
 import model.Semestar;
 import model.Student;
+import model.StudentBaza;
 import view.MainFrame;
 
 public class PredmetController {
@@ -101,5 +102,13 @@ private static PredmetController instance = null;
 		
 		RowFilter<Object, Object> predmetFilter = RowFilter.andFilter(filters);
 		MainFrame.getInstance().setPredmetSorter(predmetFilter);
+	}
+	
+	public void removeStudentfromPredmet(String sIndex, int predRow) {
+		Student s = StudentBaza.getInstance().getById(sIndex);
+		Predmet p = PredmetBaza.getInstance().getPredmeti().get(predRow);
+		StudentBaza.getInstance().removePredmetFromStudent(s, p);
+		PredmetBaza.getInstance().removeStudentFromPredmet(s, p);
+		MainFrame.getInstance().updateView();
 	}
 }

@@ -101,6 +101,12 @@ public class PredmetBaza implements Serializable {
 		p.setSpisakStudenata(studenti);
 	}
 	
+	public void removeStudentFromPredmet(Student s, Predmet p) {
+		List<Student> studenti = p.getSpisakStudenata();
+		studenti.remove(s);
+		p.setSpisakStudenata(studenti);
+	}
+	
 	public int getColumnCount() {
 		return columns.size() - 1;
 	}
@@ -120,6 +126,14 @@ public class PredmetBaza implements Serializable {
 				return true;
 		
 		return false;
+	}
+	
+	public Predmet getById(String sifraPredmeta) {
+		
+		for (Predmet predmet : predmeti)
+			if (predmet.getSifraPredmeta().equalsIgnoreCase(sifraPredmeta.trim()))
+				return predmet;
+		return null;
 	}
 	
 	public Predmet getRow(int row) {

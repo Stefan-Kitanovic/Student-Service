@@ -26,6 +26,7 @@ public class StudentPrikaziFrame extends JFrame{
 		setSize(mainSize.width/2, mainSize.height/2);
 		setResizable(false);
 		setLocationRelativeTo(MainFrame.getInstance());
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		setLayout(new BorderLayout());
 		setVisible(true);

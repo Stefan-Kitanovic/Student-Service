@@ -177,6 +177,12 @@ public class StudentBaza extends JTable implements Serializable{
 		s.setPredmeti(predmeti);
 	}
 	
+	public void removePredmetFromStudent(Student s, Predmet p) {
+		List<Predmet> predmeti = s.getPredmeti();
+		predmeti.remove(p);
+		s.setPredmeti(predmeti);
+	}
+	
 	public List<Predmet> getPredmetiList(int row) {
 		return studenti.get(row).getPredmeti();
 	}

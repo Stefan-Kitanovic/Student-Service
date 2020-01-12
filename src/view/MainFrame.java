@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -179,6 +180,7 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setSize(frameSize);
 		setTitle("Studentska Sluzba");
+		setIconImage(new ImageIcon("icons/appLogo.png").getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Postavlja prozor na centar ekrana
