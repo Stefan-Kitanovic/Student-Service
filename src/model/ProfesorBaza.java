@@ -105,14 +105,18 @@ public class ProfesorBaza implements Serializable {
 	
 	public void assignPredmetToProfesor(Predmet predmet, Profesor profesor) {
 		List<Predmet> predmeti = profesor.getPredmeti();
-		predmeti.add(predmet);
-		getProfesorById(profesor.getBrojLicneKarte()).setPredmeti(predmeti);
+		if (!predmeti.contains(predmet))
+			predmeti.add(predmet);
+		
+		profesori.get(getProfesorRow(profesor.getBrojLicneKarte())).setPredmeti(predmeti);
 	}
 	
 	public void removePredmetFromProfesor(Predmet predmet, Profesor profesor) {
-		List<Predmet> predmeti = profesor.getPredmeti();
-		predmeti.remove(predmet);
-		getProfesorById(profesor.getBrojLicneKarte()).setPredmeti(predmeti);
+		if (profesor != null) {
+			List<Predmet> predmeti = profesor.getPredmeti();
+			predmeti.remove(predmet);
+			profesori.get(getProfesorRow(profesor.getBrojLicneKarte())).setPredmeti(predmeti);
+		}
 	}
 	
 	public List<Predmet> getPredmeti(int row) {

@@ -13,7 +13,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.AbstractTableModel;
 
 import model.PredmetBaza;
-import model.Profesor;
 import model.ProfesorBaza;
 
 public class ProfesorPrikaziFrame extends JFrame {
@@ -32,6 +31,8 @@ public class ProfesorPrikaziFrame extends JFrame {
 
 		AbstractTableModel abstractTable = new AbstractTableModel() {
 			
+			private static final long serialVersionUID = -5246492386659421409L;
+
 			@Override
 			public Object getValueAt(int row, int column) {
 				return ProfesorBaza.getInstance().prikaziGetValueAt(row, column, MainFrame.getInstance().getSelectedProfesorRow());

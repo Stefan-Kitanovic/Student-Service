@@ -169,7 +169,7 @@ public class DialogAddEditPredmet extends JDialog {
 			if (predmet.getPredmetniProfesor() != null) {
 				profesorRow = ProfesorBaza.getInstance().getProfesorRow(predmet.getPredmetniProfesor().getBrojLicneKarte());
 				if (profesorRow != -1)
-					comboBoxProfesor.setSelectedIndex(profesorRow);			
+					comboBoxProfesor.setSelectedIndex(profesorRow+1);			
 			} else {
 				comboBoxProfesor.setSelectedIndex(0);
 			}

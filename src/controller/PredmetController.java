@@ -31,6 +31,11 @@ private static PredmetController instance = null;
 	public void addPredmet(String sifraPredmeta, String nazivPredmeta, Semestar semestar, Godina godinaStudija,
 			Profesor predmetniProfesor, List<Student> spisakStudenata) {
 		PredmetBaza.getInstance().addPredmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata);
+		
+		if (predmetniProfesor != null) {
+			ProfesorBaza.getInstance().assignPredmetToProfesor(new Predmet(sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor, spisakStudenata), predmetniProfesor);
+		}
+		
 		MainFrame.getInstance().updateView();
 	}
 	
@@ -39,7 +44,11 @@ private static PredmetController instance = null;
 		PredmetBaza.getInstance().editPredmet(row, sifraPredmeta, nazivPredmeta, semestar, godinaStudija, predmetniProfesor);
 		if(row < 0)
 			return;
-			
+		
+		if (predmetniProfesor != null) {
+			ProfesorBaza.getInstance().assignPredmetToProfesor(PredmetBaza.getInstance().getRow(row), predmetniProfesor);			
+		}
+		
 		MainFrame.getInstance().updateView();
 	}
 	
@@ -48,6 +57,7 @@ private static PredmetController instance = null;
 			return;
 		
 		Predmet predmet = PredmetBaza.getInstance().getRow(row);
+		ProfesorBaza.getInstance().removePredmetFromProfesor(predmet, predmet.getPredmetniProfesor());
 		PredmetBaza.getInstance().deletePredmet(predmet.getSifraPredmeta());
 		MainFrame.getInstance().updateView();	
 	}
