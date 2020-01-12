@@ -61,7 +61,7 @@ public class Toolbar extends JToolBar {
 					//Operacije sa profesorima
 					break;
 				case 2:
-					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, MainFrame.getInstance().getSelectedPredmetRow());
+					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, -1);
 					dialogPredmet.setVisible(true);
 					break;
 			}
@@ -163,7 +163,7 @@ public class Toolbar extends JToolBar {
 		};
 		
 		btnAddStudentToPredmet = new JButton(addStudentToPredmet);
-		btnAddStudentToPredmet.setIcon(new ImageIcon(new ImageIcon("icons/add.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+		btnAddStudentToPredmet.setIcon(new ImageIcon(new ImageIcon("icons/addStudentToPredmet.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
 		btnAddStudentToPredmet.setToolTipText("Dodavanje studenta na izabrani predmet");
 		btnAddStudentToPredmet.setVisible(false);
 		
@@ -193,7 +193,7 @@ public class Toolbar extends JToolBar {
 		};
 		
 		btnAddProfesorToPredmet = new JButton(addProfesorToPredmet);
-		btnAddProfesorToPredmet.setIcon(new ImageIcon(new ImageIcon("icons/add.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+		btnAddProfesorToPredmet.setIcon(new ImageIcon(new ImageIcon("icons/addProfesorToPredmet.png").getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
 		btnAddProfesorToPredmet.setToolTipText("Dodavanje profesora na izabrani predmet");
 		btnAddProfesorToPredmet.setVisible(false);
 		

@@ -183,13 +183,13 @@ public class DialogAddEditPredmet extends JDialog {
 							
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (textFieldSifra.getText().isEmpty() || textFieldNaziv.getText().isEmpty()) {
-					buttonPotvrdi.setEnabled(false);
-					labelSifraExists.setVisible(false);
-					
-				} else if ((adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText()))) {
+				if ((adding && PredmetBaza.getInstance().predmetExists(textFieldSifra.getText()))) {
 					buttonPotvrdi.setEnabled(false);
 					labelSifraExists.setVisible(true);
+				
+				} else if (textFieldSifra.getText().isEmpty() || textFieldNaziv.getText().isEmpty()) {
+					buttonPotvrdi.setEnabled(false);
+					labelSifraExists.setVisible(false);
 					
 				} else if (!adding && sifraPredmeta.equals(textFieldSifra.getText())) {
 					buttonPotvrdi.setEnabled(true);

@@ -88,7 +88,7 @@ public class MenuBar extends JMenuBar {
 					//Dodavanje profesora
 					break;
 				case 2:
-					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, MainFrame.getInstance().getSelectedPredmetRow());
+					DialogAddEditPredmet dialogPredmet = new DialogAddEditPredmet(true, -1);
 					dialogPredmet.setVisible(true);
 					break;
 				}
