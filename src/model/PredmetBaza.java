@@ -95,6 +95,12 @@ public class PredmetBaza implements Serializable {
 		predmet.setPredmetniProfesor(null);
 	}
 	
+	public void assignStudentToPredmet(Student s, Predmet p) {
+		List<Student> studenti = p.getSpisakStudenata();
+		studenti.add(s);
+		p.setSpisakStudenata(studenti);
+	}
+	
 	public int getColumnCount() {
 		return columns.size() - 1;
 	}
@@ -150,6 +156,7 @@ public class PredmetBaza implements Serializable {
 	public String getColumnName(int index) {
 		return columns.get(index);
 	}
+	
 	
 	public void savePredmetaBazaData() {
 

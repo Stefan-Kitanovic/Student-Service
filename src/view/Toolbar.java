@@ -184,7 +184,14 @@ public class Toolbar extends JToolBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (MainFrame.getInstance().getSelectedTab() == 2) {
-					
+					int rowP = MainFrame.getInstance().getSelectedPredmetRow();
+					if(rowP < 0) {
+						JOptionPane.showMessageDialog(MainFrame.getInstance(), "Izaberite predmet za dodavanje");
+						return;
+					}
+						
+					DialogAddStudentToPredmet dialogStudentToPredmet = new DialogAddStudentToPredmet(rowP);
+					dialogStudentToPredmet.setVisible(true);
 				}
 				
 			}

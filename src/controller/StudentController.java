@@ -1,5 +1,7 @@
 package controller;
 
+import model.Predmet;
+import model.PredmetBaza;
 import model.Student;
 import model.StudentBaza;
 import view.MainFrame;
@@ -34,5 +36,13 @@ public class StudentController {
 	
 	public void saveData() {
 		StudentBaza.getInstance().saveStudentDataBase();
+	}
+	
+	public void addStudentToPredmet(String index, int row) {
+		Student s = StudentBaza.getInstance().getById(index);
+		Predmet p = PredmetBaza.getInstance().getPredmeti().get(row);
+		StudentBaza.getInstance().assignPredmetToStudent(s, p);
+		PredmetBaza.getInstance().assignStudentToPredmet(s, p);
+		MainFrame.getInstance().updateView();
 	}
 }

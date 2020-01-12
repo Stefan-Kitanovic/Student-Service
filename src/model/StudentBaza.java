@@ -132,6 +132,14 @@ public class StudentBaza extends JTable implements Serializable{
 		return false;
 	}
 	
+	public Student getById(String id) {
+		for(Student student : studenti) {
+			if(id.trim().equalsIgnoreCase(student.getIndex()))
+				return student;
+		}
+		return null;
+	}
+	
 	public void addStudent(Student s) {
 		studenti.add(s);
 	}
@@ -161,6 +169,12 @@ public class StudentBaza extends JTable implements Serializable{
 				break;
 			}
 		}
+	}
+	
+	public void assignPredmetToStudent(Student s, Predmet p) {
+		List<Predmet> predmeti = s.getPredmeti();
+		predmeti.add(p);
+		s.setPredmeti(predmeti);
 	}
 	
 	public void saveStudentDataBase() {
