@@ -272,7 +272,7 @@ public class Toolbar extends JToolBar {
 			public void actionPerformed(ActionEvent e) {
 				switch(MainFrame.getInstance().getSelectedTab()) {
 					case 0:
-						//Student
+						StudentController.getInstance().filterStudent(searchBar.getText());
 					case 1:
 						ProfesorController.getInstance().filterProfesor(searchBar.getText());
 					case 2:

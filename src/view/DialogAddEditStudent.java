@@ -185,7 +185,7 @@ public class DialogAddEditStudent extends JDialog {
 		pGodina.add(godina);
 		
 		//Status
-		JRadioButton bu = new JRadioButton("Bud�et", true);
+		JRadioButton bu = new JRadioButton("Budzet", true);
 		JRadioButton sf = new JRadioButton("Samofinansiranje");
 		ButtonGroup status = new ButtonGroup();
 		status.add(bu);

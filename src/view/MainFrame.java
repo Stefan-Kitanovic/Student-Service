@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				ProfesorController.getInstance().saveData();
 				PredmetController.getInstance().saveData();
-				StudentController.getInstance().saveData(); //Ne radi ucitavanje/cuvanje baze studenata
+				StudentController.getInstance().saveData();
 				System.exit(0);
 			}
 		});
@@ -204,7 +204,10 @@ public class MainFrame extends JFrame {
 	}
 	
 	public int getSelectedStudentRow() {
-		return studentTable.getSelectedRow();
+		if (studentTable.getSelectedRow() >= 0)
+			return studentTable.convertColumnIndexToModel(studentTable.getSelectedRow());
+		else
+			return studentTable.getSelectedRow();
 	}
 	
 	public int getSelectedProfesorRow() {

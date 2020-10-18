@@ -1,5 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.RowFilter;
+
 import model.Predmet;
 import model.PredmetBaza;
 import model.Student;
@@ -44,5 +49,25 @@ public class StudentController {
 		StudentBaza.getInstance().assignPredmetToStudent(s, p);
 		PredmetBaza.getInstance().assignStudentToPredmet(s, p);
 		MainFrame.getInstance().updateView();
+	}
+	
+	public void filterStudent(String searchResult) {
+		String[] criteria = searchResult.split(";");	
+		List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+		
+		for (String c : criteria) {
+			String[] s = c.split(":", 2);
+			
+			
+			for (int i = 0; i < 11; i++) {
+				if (s[0].equalsIgnoreCase(StudentBaza.getInstance().getColumnName(i))) {
+					if (s.length == 2)
+						filters.add(RowFilter.regexFilter("^" + s[1] + "$", i));
+				}
+			}
+		}
+		
+		RowFilter<Object, Object> studentFilter = RowFilter.andFilter(filters);
+		MainFrame.getInstance().setProfesorSorter(studentFilter);
 	}
 }

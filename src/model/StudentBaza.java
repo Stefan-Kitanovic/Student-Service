@@ -65,6 +65,8 @@ public class StudentBaza extends JTable implements Serializable{
 			}catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
+			
 		}
 	}
 	
@@ -140,6 +142,14 @@ public class StudentBaza extends JTable implements Serializable{
 		return null;
 	}
 	
+	public int getStudentRow(String id) {
+		for(Student student : studenti) {
+			if(id.trim().equalsIgnoreCase(student.getIndex()))
+				return studenti.indexOf(student);
+		}
+		return 0;
+	}
+	
 	public void addStudent(Student s) {
 		studenti.add(s);
 	}
@@ -180,7 +190,7 @@ public class StudentBaza extends JTable implements Serializable{
 	public void removePredmetFromStudent(Student s, Predmet p) {
 		List<Predmet> predmeti = s.getPredmeti();
 		predmeti.remove(p);
-		s.setPredmeti(predmeti);
+		studenti.get(getStudentRow(s.getIndex())).setPredmeti(predmeti);
 	}
 	
 	public List<Predmet> getPredmetiList(int row) {

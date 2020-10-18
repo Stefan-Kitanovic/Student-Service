@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PredmetBaza implements Serializable {
 
 	private static final long serialVersionUID = 617024959849324035L;
@@ -53,6 +54,43 @@ public class PredmetBaza implements Serializable {
 			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(1), ProfesorBaza.getInstance().getRow(1));
 			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(2), ProfesorBaza.getInstance().getRow(2));
 			ProfesorBaza.getInstance().assignPredmetToProfesor(getRow(3), ProfesorBaza.getInstance().getRow(3));
+			
+
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 1/2019"), getRow(0));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 5/2019"), getRow(0));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 3/2019"), getRow(0));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 2/2019"), getRow(0));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 3/2018"), getRow(1));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 15/2018"), getRow(1));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 133/2017"), getRow(1));			
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 122/2017"), getRow(1));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 1/2017"), getRow(2));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 5/2017"), getRow(2));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 33/2017"), getRow(2));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 152/2016"), getRow(2));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 1/2016"), getRow(3));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 5/2016"), getRow(3));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 33/2015"), getRow(3));
+			StudentBaza.getInstance().assignPredmetToStudent(StudentBaza.getInstance().getById("ra 102/2015"), getRow(3));
+				
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 1/2019"), getRow(0));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 5/2019"), getRow(0));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 3/2019"), getRow(0));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 2/2019"), getRow(0));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 3/2018"), getRow(1));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 15/2018"), getRow(1));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 133/2017"), getRow(1));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 122/2017"), getRow(1));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 1/2017"), getRow(2));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 5/2017"), getRow(2));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 33/2017"), getRow(2));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 152/2016"), getRow(2));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 1/2016"), getRow(3));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 5/2016"), getRow(3));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 33/2015"), getRow(3));
+			assignStudentToPredmet(StudentBaza.getInstance().getById("ra 102/2015"), getRow(3));
+
+
 		}
 		
 	}
@@ -104,7 +142,7 @@ public class PredmetBaza implements Serializable {
 	public void removeStudentFromPredmet(Student s, Predmet p) {
 		List<Student> studenti = p.getSpisakStudenata();
 		studenti.remove(s);
-		p.setSpisakStudenata(studenti);
+		predmeti.get(getSelectedRow(p.getSifraPredmeta())).setSpisakStudenata(studenti);
 	}
 	
 	public int getColumnCount() {
@@ -134,6 +172,14 @@ public class PredmetBaza implements Serializable {
 			if (predmet.getSifraPredmeta().equalsIgnoreCase(sifraPredmeta.trim()))
 				return predmet;
 		return null;
+	}
+	
+	public int getSelectedRow(String sifraPredmeta) {
+		
+		for (Predmet predmet : predmeti)
+			if (predmet.getSifraPredmeta().equalsIgnoreCase(sifraPredmeta.trim()))
+				return predmeti.indexOf(predmet);
+		return -1;
 	}
 	
 	public Predmet getRow(int row) {
